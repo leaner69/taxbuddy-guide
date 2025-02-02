@@ -70,6 +70,9 @@ export default {
         float: "float 6s ease-in-out infinite",
         fadeIn: "fadeIn 0.5s ease-out forwards",
       },
+      boxShadow: {
+        'testimonial': '0 4px 24px rgba(10, 31, 62, 0.1)',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
