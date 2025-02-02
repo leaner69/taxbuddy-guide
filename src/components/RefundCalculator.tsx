@@ -18,62 +18,75 @@ export const RefundCalculator = () => {
   };
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-24 bg-white border-b">
       <div className="container px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-3xl mx-auto bg-white rounded-xl p-8 shadow-lg"
+          className="max-w-4xl mx-auto"
         >
-          <h2 className="text-2xl font-bold text-primary mb-8 text-center">Calculate Your Potential Refund</h2>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold text-primary mb-4">Calculate Your Potential Refund</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Use our calculator to estimate how much you could get back from your tax return
+            </p>
+          </div>
           
-          <div className="space-y-8">
-            <div>
-              <label className="block text-lg font-medium text-gray-700 mb-3">Semester Fees (€ per semester)</label>
-              <Slider
-                defaultValue={[300]}
-                max={1000}
-                step={10}
-                value={semesterFees}
-                onValueChange={setSemesterFees}
-                className="w-full"
-              />
-              <p className="mt-2 text-primary font-medium">€{semesterFees[0]}</p>
-            </div>
+          <div className="bg-gray-50 rounded-xl p-8 md:p-12 shadow-sm">
+            <div className="space-y-12">
+              <div>
+                <label className="block text-lg font-medium text-primary mb-6">
+                  Semester Fees (€ per semester)
+                </label>
+                <Slider
+                  defaultValue={[300]}
+                  max={1000}
+                  step={10}
+                  value={semesterFees}
+                  onValueChange={setSemesterFees}
+                  className="w-full"
+                />
+                <p className="mt-4 text-primary font-medium">€{semesterFees[0]}</p>
+              </div>
 
-            <div>
-              <label className="block text-lg font-medium text-gray-700 mb-3">Daily Travel Distance (km)</label>
-              <Slider
-                defaultValue={[20]}
-                max={100}
-                step={1}
-                value={travelCosts}
-                onValueChange={setTravelCosts}
-                className="w-full"
-              />
-              <p className="mt-2 text-primary font-medium">{travelCosts[0]}km</p>
-            </div>
+              <div>
+                <label className="block text-lg font-medium text-primary mb-6">
+                  Daily Travel Distance (km)
+                </label>
+                <Slider
+                  defaultValue={[20]}
+                  max={100}
+                  step={1}
+                  value={travelCosts}
+                  onValueChange={setTravelCosts}
+                  className="w-full"
+                />
+                <p className="mt-4 text-primary font-medium">{travelCosts[0]}km</p>
+              </div>
 
-            <div>
-              <label className="block text-lg font-medium text-gray-700 mb-3">Study Materials (€ per year)</label>
-              <Slider
-                defaultValue={[200]}
-                max={1000}
-                step={10}
-                value={studyMaterials}
-                onValueChange={setStudyMaterials}
-                className="w-full"
-              />
-              <p className="mt-2 text-primary font-medium">€{studyMaterials[0]}</p>
-            </div>
+              <div>
+                <label className="block text-lg font-medium text-primary mb-6">
+                  Study Materials (€ per year)
+                </label>
+                <Slider
+                  defaultValue={[200]}
+                  max={1000}
+                  step={10}
+                  value={studyMaterials}
+                  onValueChange={setStudyMaterials}
+                  className="w-full"
+                />
+                <p className="mt-4 text-primary font-medium">€{studyMaterials[0]}</p>
+              </div>
 
-            <div className="mt-8 p-6 bg-primary rounded-xl text-white">
-              <div className="flex items-center justify-between">
-                <span className="text-xl">Estimated Refund:</span>
-                <div className="flex items-center text-3xl font-bold">
-                  <Euro className="w-6 h-6 mr-1" />
-                  {calculateRefund()}
+              <div className="p-8 bg-primary rounded-xl text-white">
+                <div className="flex items-center justify-between">
+                  <span className="text-xl">Estimated Refund:</span>
+                  <div className="flex items-center text-3xl font-bold">
+                    <Euro className="w-6 h-6 mr-1" />
+                    {calculateRefund()}
+                  </div>
                 </div>
               </div>
             </div>

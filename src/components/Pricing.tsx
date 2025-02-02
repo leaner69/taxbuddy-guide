@@ -4,25 +4,25 @@ import { motion } from "framer-motion";
 
 export const Pricing = () => {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-white border-b">
       <div className="container px-4">
-        <div className="mx-auto max-w-2xl text-center mb-16">
+        <div className="max-w-2xl mx-auto text-center mb-16">
           <h2 className="text-3xl font-bold text-primary mb-4">Simple, Transparent Pricing</h2>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-muted-foreground">
             Choose the plan that works best for you
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Self-Service Package */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-lg shadow-lg border border-gray-100 p-8"
+            className="bg-white rounded-xl p-8 border-2 hover:border-primary transition-colors"
           >
             <div className="mb-8">
               <h3 className="text-2xl font-bold text-primary mb-2">Self-Service</h3>
-              <p className="text-3xl font-bold text-primary/90 mb-4">€24.99</p>
+              <p className="text-3xl font-bold text-primary mb-4">€24.99</p>
               <Button className="w-full bg-primary hover:bg-primary-hover text-white">
                 Get Started
               </Button>
@@ -40,7 +40,7 @@ export const Pricing = () => {
                 ].map((feature) => (
                   <li key={feature} className="flex gap-3">
                     <Check className="h-5 w-5 text-primary flex-shrink-0" />
-                    <span className="text-gray-600">{feature}</span>
+                    <span className="text-muted-foreground">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -51,11 +51,11 @@ export const Pricing = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="bg-white rounded-lg shadow-lg border border-gray-100 p-8"
+            className="bg-white rounded-xl p-8 border-2 hover:border-primary transition-colors"
           >
             <div className="mb-8">
               <h3 className="text-2xl font-bold text-primary mb-2">Expert Service</h3>
-              <p className="text-3xl font-bold text-primary/90 mb-4">€59.99</p>
+              <p className="text-3xl font-bold text-primary mb-4">€59.99</p>
               <Button className="w-full bg-primary hover:bg-primary-hover text-white">
                 Get Expert Help
               </Button>
@@ -74,7 +74,7 @@ export const Pricing = () => {
                 ].map((feature) => (
                   <li key={feature} className="flex gap-3">
                     <Check className="h-5 w-5 text-primary flex-shrink-0" />
-                    <span className="text-gray-600">{feature}</span>
+                    <span className="text-muted-foreground">{feature}</span>
                   </li>
                 ))}
               </ul>

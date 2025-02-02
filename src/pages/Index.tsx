@@ -9,16 +9,20 @@ import { FAQ } from "@/components/FAQ";
 
 const Index = () => {
   return (
-    <main className="min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen">
       <Banner />
-      <Hero />
-      <Features />
-      <HowItWorks />
-      <RefundCalculator />
-      <Pricing />
-      <Testimonials />
-      <FAQ />
-    </main>
+      <main className="flex-grow">
+        <Hero />
+        <div className="space-y-24">
+          <Features />
+          <HowItWorks />
+          <RefundCalculator />
+          <Pricing />
+          <Testimonials />
+          <FAQ />
+        </div>
+      </main>
+    </div>
   );
 };
 
