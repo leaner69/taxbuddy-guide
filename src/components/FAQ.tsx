@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { HelpCircle, Search, BookOpen, Receipt } from "lucide-react";
+import { HelpCircle, Search, BookOpen, Receipt, Euro, Calendar, FileText } from "lucide-react";
 
 const faqs = [
   {
@@ -26,22 +26,34 @@ const faqs = [
       "Keep all receipts related to: semester fees, study materials, laptop/computer purchases, travel costs to university, rent for a second residence, mandatory internship expenses, and language course fees. Digital copies are accepted by the tax office.",
   },
   {
-    icon: HelpCircle,
-    question: "How easy is it to file taxes through ELSTER?",
-    answer:
-      "While ELSTER itself is in German, our step-by-step guide makes it easy to navigate. We provide clear instructions with screenshots, translations of key terms, and explain exactly what information to enter in each field.",
-  },
-  {
-    icon: HelpCircle,
-    question: "What tax deductions can students claim in Germany?",
-    answer:
-      "Students can claim various deductions including: semester fees, study materials, travel costs to university, rent for a second residence, work equipment, and mandatory internship expenses.",
-  },
-  {
-    icon: HelpCircle,
+    icon: Euro,
     question: "How much refund can I expect?",
     answer:
       "Refund amounts vary based on individual circumstances, but students often receive between €500-€1,500. Our calculator will help estimate your potential refund based on your specific situation.",
+  },
+  {
+    icon: Calendar,
+    question: "When should I file my tax return?",
+    answer:
+      "You can file your tax return for the previous year until July 31st. For example, for the tax year 2023, you have until July 31st, 2024. If you use a tax advisor, the deadline extends to February 28th of the following year.",
+  },
+  {
+    icon: FileText,
+    question: "What documents do I need for filing?",
+    answer:
+      "You'll need your annual income statement (Lohnsteuerbescheinigung), proof of health insurance payments, receipts for study materials, rental contract if applicable, and documentation of any additional income sources.",
+  },
+  {
+    icon: HelpCircle,
+    question: "Do I need to file taxes as a student?",
+    answer:
+      "If your annual income exceeds €10,347 (as of 2023), you are required to file a tax return. However, even if you earn less, filing voluntarily can often result in a refund of your paid taxes.",
+  },
+  {
+    icon: HelpCircle,
+    question: "Can international students file taxes in Germany?",
+    answer:
+      "Yes, international students can and should file taxes in Germany if they have earned income here. The same rules apply to international students as to German students.",
   },
 ];
 
