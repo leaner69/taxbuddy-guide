@@ -6,7 +6,6 @@ import { RefundCalculator } from "@/components/RefundCalculator";
 import { Pricing } from "@/components/Pricing";
 import { Testimonials } from "@/components/Testimonials";
 import { FAQ } from "@/components/FAQ";
-import { Contact } from "@/components/Contact";
 
 const Index = () => {
   return (
@@ -19,7 +18,6 @@ const Index = () => {
       <Pricing />
       <Testimonials />
       <FAQ />
-      <Contact />
     </main>
   );
 };
