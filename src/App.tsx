@@ -19,6 +19,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <div className="flex flex-col min-h-screen">
+          <div className="sticky top-0 z-50 bg-primary text-white py-2 text-center text-sm">
+            Average students miss out on <span className="font-bold">€850</span> in tax refunds every year!
+          </div>
           <Header />
           <main className="flex-grow">
             <Routes>

@@ -41,19 +41,19 @@ const faqs = [
 
 export const FAQ = () => {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-12 bg-white">
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base font-semibold leading-7 text-primary">FAQ</h2>
-          <p className="mt-2 text-3xl font-bold tracking-tight text-secondary-foreground sm:text-4xl">
+          <p className="mt-2 text-3xl font-bold tracking-tight text-secondary-foreground sm:text-4xl text-center">
             Common Questions
           </p>
           <div className="mt-4 flex justify-center">
             <HelpCircle className="h-8 w-8 text-primary" />
           </div>
         </div>
-        <div className="mx-auto mt-16 max-w-2xl">
-          <Accordion type="single" collapsible className="w-full">
+        <div className="mx-auto mt-8 max-w-2xl">
+          <Accordion type="single" collapsible className="w-full shadow-lg rounded-lg bg-white p-4">
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
                 <AccordionTrigger className="text-left">
