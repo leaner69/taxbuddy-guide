@@ -30,8 +30,8 @@ export default {
           hover: "#0d2b4f",
         },
         secondary: {
-          DEFAULT: "#D4AF37",
-          foreground: "#0A1F3E",
+          DEFAULT: "#1E3A5F",
+          foreground: "#FFFFFF",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -42,8 +42,8 @@ export default {
           foreground: "#64748b",
         },
         accent: {
-          DEFAULT: "#D4AF37",
-          foreground: "#0A1F3E",
+          DEFAULT: "#2A4A7F",
+          foreground: "#FFFFFF",
         },
       },
       keyframes: {
