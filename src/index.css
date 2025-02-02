@@ -53,6 +53,14 @@
     .subheading {
       @apply text-center;
     }
+
+    ul, ol {
+      @apply text-center;
+    }
+    
+    li {
+      @apply justify-center;
+    }
   }
 }
 
