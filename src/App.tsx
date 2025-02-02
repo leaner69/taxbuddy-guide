@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
+import { Banner } from "./components/Banner";
 import { Footer } from "./components/Footer";
 import Index from "./pages/Index";
 import About from "./pages/About";
@@ -19,6 +20,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <div className="flex flex-col min-h-screen">
+          <Banner />
           <Header />
           <main className="flex-grow">
             <Routes>

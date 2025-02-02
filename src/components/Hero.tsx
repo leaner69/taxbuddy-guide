@@ -4,7 +4,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export const Hero = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-white py-16 sm:py-24">
+    <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-white pt-32 pb-16 sm:py-32">
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
@@ -14,19 +14,19 @@ export const Hero = () => {
             className="space-y-6"
           >
             <h1 className="text-4xl font-bold tracking-tight text-secondary sm:text-6xl">
-              Your Personal Tax Expert in Germany
+              German Tax Returns Made Easy for Students
             </h1>
             
             <p className="text-lg text-muted-foreground">
-              File your German tax return online with our expert guidance. Perfect for students, 
-              employees, and self-employed individuals.
+              File your German tax return online with expert guidance. Perfect for international 
+              and local students studying in Germany.
             </p>
             
             <div className="space-y-4">
               {[
-                "Professional tax advice",
-                "48-hour turnaround time",
-                "Maximum refund guarantee",
+                "Average refund of €1,000 for students",
+                "ELSTER-compatible submissions",
+                "English & German support",
               ].map((feature) => (
                 <div key={feature} className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-primary" />
@@ -54,8 +54,8 @@ export const Hero = () => {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="/placeholder.svg"
-                alt="Tax filing illustration"
+                src="photo-1486312338219-ce68d2c6f44d"
+                alt="Student using laptop for tax return"
                 className="w-full h-auto"
               />
             </div>
