@@ -38,16 +38,20 @@
 
 @layer components {
   section {
-    @apply py-12;
+    @apply py-8;
   }
   
   @media (max-width: 768px) {
-    h1, h2, h3, h4, h5, h6 {
+    h1, h2, h3, h4, h5, h6, p {
       @apply text-center;
     }
     
     .icon-container {
       @apply flex justify-center;
+    }
+    
+    .subheading {
+      @apply text-center;
     }
   }
 }

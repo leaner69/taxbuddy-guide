@@ -4,7 +4,7 @@ import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 
 export const Header = () => {
   return (
-    <header className="border-b bg-white sticky top-0 z-50 shadow-sm">
+    <header className="bg-white sticky top-10 z-40">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/" className="text-2xl font-bold text-primary">
           TaxBuddy
