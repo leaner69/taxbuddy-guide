@@ -78,7 +78,7 @@ export const FAQ = () => {
                       <span className="text-[#0A1F3E] font-medium">{faq.question}</span>
                     </AccordionTrigger>
                     <AccordionContent className="px-6 pb-4 pt-2">
-                      <p className="text-gray-600 ml-10">{faq.answer}</p>
+                      <p className="text-gray-600 ml-10 text-left">{faq.answer}</p>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
