@@ -9,15 +9,37 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
-    { path: "/", label: "Home" },
-    { path: "/about", label: "About Us" },
-    { path: "/contact", label: "Contact" }
+    { 
+      path: "/", 
+      label: "Home",
+      subItems: [
+        { path: "/#how-it-works", label: "How It Works" },
+        { path: "/#pricing", label: "Pricing" },
+        { path: "/#faq", label: "FAQ" },
+      ]
+    },
+    { 
+      path: "/about", 
+      label: "About Us",
+      subItems: [
+        { path: "/about#team", label: "Our Team" },
+        { path: "/about#mission", label: "Our Mission" },
+      ]
+    },
+    { 
+      path: "/contact", 
+      label: "Contact",
+      subItems: [
+        { path: "/contact#support", label: "Support" },
+        { path: "/contact#office", label: "Office" },
+      ]
+    }
   ];
 
   return (
     <header className="bg-white fixed top-8 w-full z-40 border-b border-gray-200">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link to="/" className="text-2xl font-bold text-primary">
+        <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-[#2A3B56] to-[#4F46E5] text-transparent bg-clip-text">
           TaxBuddy
         </Link>
 
@@ -27,9 +49,21 @@ export const Header = () => {
             <NavigationMenuList>
               {menuItems.map((item) => (
                 <NavigationMenuItem key={item.path}>
-                  <Link to={item.path} className={navigationMenuTriggerStyle()}>
-                    {item.label}
-                  </Link>
+                  <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[200px] gap-2 p-4">
+                      {item.subItems.map((subItem) => (
+                        <li key={subItem.path}>
+                          <Link
+                            to={subItem.path}
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                          >
+                            {subItem.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
                 </NavigationMenuItem>
               ))}
             </NavigationMenuList>
@@ -44,17 +78,31 @@ export const Header = () => {
                 <Menu className="h-6 w-6" />
               </button>
             </SheetTrigger>
-            <SheetContent side="right">
+            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <nav className="flex flex-col gap-4 mt-8">
                 {menuItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className="text-lg font-medium hover:text-primary transition-colors"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
+                  <div key={item.path} className="space-y-2">
+                    <Link
+                      to={item.path}
+                      className="text-lg font-medium hover:text-[#4F46E5] transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                    <ul className="ml-4 space-y-2">
+                      {item.subItems.map((subItem) => (
+                        <li key={subItem.path}>
+                          <Link
+                            to={subItem.path}
+                            className="text-gray-600 hover:text-[#4F46E5] transition-colors"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {subItem.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 ))}
               </nav>
             </SheetContent>
