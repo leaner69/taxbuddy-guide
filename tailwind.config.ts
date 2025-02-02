@@ -25,35 +25,26 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#4CD790",
+          DEFAULT: "#2563eb",
           foreground: "#FFFFFF",
-          hover: "#3BC17E",
+          hover: "#1d4ed8",
         },
         secondary: {
-          DEFAULT: "#F7F9FC",
-          foreground: "#2D3436",
+          DEFAULT: "#1e293b",
+          foreground: "#FFFFFF",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
-          DEFAULT: "#F0F3F8",
-          foreground: "#6B7280",
+          DEFAULT: "#f1f5f9",
+          foreground: "#64748b",
         },
         accent: {
-          DEFAULT: "#E8FFF3",
-          foreground: "#2D3436",
+          DEFAULT: "#e2e8f0",
+          foreground: "#0f172a",
         },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
         "accordion-down": {
