@@ -68,3 +68,11 @@
     transform: translateY(-5px);
   }
 }
+
+.bg-gradient-primary {
+  background: linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%);
+}
+
+.bg-gradient-secondary {
+  background: linear-gradient(to right, #243949 0%, #517fa4 100%);
+}
