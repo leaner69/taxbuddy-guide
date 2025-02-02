@@ -3,21 +3,21 @@ import { Calculator, FileText, PiggyBank } from "lucide-react";
 
 const features = [
   {
-    name: "Schnelle Berechnung",
+    name: "Quick Calculation",
     description:
-      "Erhalte in wenigen Minuten eine Schätzung deiner möglichen Steuerrückerstattung.",
+      "Get an estimate of your potential tax refund in just a few minutes.",
     icon: Calculator,
   },
   {
-    name: "PDF-Anleitung",
+    name: "PDF Guide",
     description:
-      "Detaillierte, schrittweise Anleitung für die Steuererklärung über ELSTER.",
+      "Receive a detailed, step-by-step guide for filing your taxes through ELSTER.",
     icon: FileText,
   },
   {
-    name: "Maximale Erstattung",
+    name: "Maximum Refund",
     description:
-      "Wir helfen dir, alle relevanten Posten zu identifizieren und einzureichen.",
+      "We help you identify and claim all relevant deductions and expenses.",
     icon: PiggyBank,
   },
 ];
@@ -28,14 +28,14 @@ export const Features = () => {
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <h2 className="text-base font-semibold leading-7 text-primary">
-            Einfacher Prozess
+            Simple Process
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-secondary-foreground sm:text-4xl">
-            Deine Steuererklärung leicht gemacht
+            Tax Returns Made Easy
           </p>
           <p className="mt-6 text-lg leading-8 text-muted-foreground">
-            Mit unserem Tool sparst du Zeit und maximierst deine Rückerstattung.
-            Perfekt auf die Bedürfnisse von Studierenden abgestimmt.
+            Save time and maximize your refund with our tool. Perfectly tailored
+            for students' needs.
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">

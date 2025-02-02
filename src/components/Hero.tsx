@@ -12,30 +12,29 @@ export const Hero = () => {
             transition={{ duration: 0.6 }}
           >
             <span className="inline-flex items-center rounded-full bg-accent px-3 py-1 text-sm font-medium text-primary mb-6">
-              Für Studierende in Deutschland
+              For Students in Germany
             </span>
             <h1 className="text-4xl font-bold tracking-tight text-secondary-foreground sm:text-6xl">
-              Maximiere deine{" "}
-              <span className="text-primary">Steuerrückerstattung</span>
+              Maximize your <span className="text-primary">Tax Refund</span>
             </h1>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Einfache Steuererklärung für Studierende. Berechne deine potenzielle
-              Rückerstattung und erhalte eine maßgeschneiderte Anleitung für
-              ELSTER.
+              Simple tax returns for students. Calculate your potential refund and
+              get a tailored guide for filing through ELSTER, Germany's online tax
+              platform.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Button
                 size="lg"
                 className="animate-float hover:shadow-lg transition-all duration-300"
               >
-                Jetzt berechnen
+                Calculate Now
               </Button>
               <Button
                 variant="outline"
                 size="lg"
                 className="hover:bg-secondary/80 transition-all duration-300"
               >
-                Mehr erfahren
+                Learn More
               </Button>
             </div>
           </motion.div>
