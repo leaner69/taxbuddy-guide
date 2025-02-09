@@ -1,3 +1,4 @@
+
 import { Banner } from "@/components/Banner";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
@@ -13,7 +14,7 @@ const Index = () => {
       <Banner />
       <main className="flex-grow">
         <Hero />
-        <div className="space-y-24">
+        <div className="space-y-12">
           <Features />
           <HowItWorks />
           <RefundCalculator />
