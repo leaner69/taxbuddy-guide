@@ -50,7 +50,7 @@
 
 @layer components {
   section {
-    @apply py-6;
+    @apply py-4 md:py-6;
   }
   
   @media (max-width: 768px) {
