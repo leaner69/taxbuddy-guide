@@ -1,23 +1,24 @@
+
 import { motion } from "framer-motion";
-import { FileText, Calculator, FileCheck } from "lucide-react";
+import { ClipboardCheck, FileText, CheckCircle } from "lucide-react";
 
 const steps = [
   {
-    icon: FileText,
-    title: "Input Your Details",
-    description: "Enter student-specific deductions (tuition, books, internships).",
+    icon: ClipboardCheck,
+    title: "Check Refund",
+    description: "Answer a few simple questions to see your potential refund amount.",
     color: "from-[#0A1F3E]/10 to-[#0A1F3E]/5"
   },
   {
-    icon: Calculator,
-    title: "AI Calculates Refund",
-    description: "AI instantly estimates your refund with visual progress bars.",
+    icon: FileText,
+    title: "Follow Easy Guide",
+    description: "Get your personalized step-by-step guide with clear instructions.",
     color: "from-[#D4AF37]/20 to-[#D4AF37]/10"
   },
   {
-    icon: FileCheck,
-    title: "Get Your Guide",
-    description: "Download your personalized ELSTER walkthrough PDF.",
+    icon: CheckCircle,
+    title: "Submit with Confidence",
+    description: "File your return easily with our support at every step.",
     color: "from-[#0A1F3E]/10 to-[#0A1F3E]/5"
   },
 ];
