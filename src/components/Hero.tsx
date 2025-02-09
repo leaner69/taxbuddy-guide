@@ -25,7 +25,7 @@ export const Hero = () => {
           <div className="flex justify-center">
             <Badge variant="secondary" className="px-4 py-2 text-lg flex items-center gap-2 bg-accent text-white">
               <Shield className="h-5 w-5" />
-              If Your Refund is Below €100, You Get a Full Refund!
+              No Risk Guarantee: Get Your Money Back if Refund is Under €100!
             </Badge>
           </div>
           
@@ -58,3 +58,4 @@ export const Hero = () => {
     </section>
   );
 };
+
