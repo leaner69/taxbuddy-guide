@@ -1,5 +1,6 @@
+
 import { motion } from "framer-motion";
-import { UserRound, Quote, CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react";
+import { UserRound, Quote } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -13,28 +14,28 @@ const testimonials = [
     name: "Sarah M.",
     university: "TU Berlin",
     refundAmount: "€780",
-    text: "TaxBuddy helped me claim back study deductions I didn't even know about!",
+    text: "The step-by-step guidance helped me understand which study-related expenses I could claim on my tax return.",
     verified: true,
   },
   {
     name: "Michael K.",
     university: "LMU Munich",
-    refundAmount: "€1,200",
-    text: "As an international student, I was lost with German taxes until I found TaxBuddy.",
+    refundAmount: "€950",
+    text: "As an international student, having clear instructions in English made the German tax return process more approachable.",
     verified: true,
   },
   {
     name: "Lisa W.",
     university: "University of Hamburg",
-    refundAmount: "€950",
-    text: "The step-by-step guide made filing through ELSTER so much easier!",
+    refundAmount: "€820",
+    text: "The platform helped me organize my documents and understand which deductions I might be eligible for.",
     verified: true,
   },
 ];
 
 export const Testimonials = () => {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-[#F6F6F7]">
       <div className="container px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -43,10 +44,10 @@ export const Testimonials = () => {
           className="mx-auto max-w-2xl lg:text-center mb-16"
         >
           <h2 className="text-4xl font-bold tracking-tight text-primary mb-4 font-serif">
-            10,000+ Students Trust TaxBuddy – Here's Why
+            What Students Say About Our Service
           </h2>
           <p className="text-lg text-muted-foreground">
-            Real stories from students who maximized their tax returns
+            Learn from other students' experiences with our tax guidance platform
           </p>
         </motion.div>
 
@@ -82,43 +83,35 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: any; index: numb
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.2 }}
-      className="relative bg-white rounded-2xl p-8 shadow-lg hover:translate-y-[-3%] transition-all duration-300 group"
-      style={{ boxShadow: '0 4px 24px rgba(10, 31, 62, 0.1)' }}
+      className="relative bg-white rounded-lg p-8 shadow-md hover:shadow-lg transition-shadow duration-300"
     >
       {/* Quote Mark */}
-      <Quote className="absolute top-4 right-4 h-12 w-12 text-primary opacity-10" />
+      <Quote className="absolute top-4 right-4 h-8 w-8 text-primary/10" />
 
       {/* User Info */}
       <div className="flex items-center gap-4 mb-6">
-        <UserRound className="h-12 w-12 text-primary" />
+        <div className="bg-[#F1F1F1] rounded-full p-3">
+          <UserRound className="h-6 w-6 text-[#8E9196]" />
+        </div>
         <div>
           <h3 className="text-lg font-semibold text-primary">
             {testimonial.name}
           </h3>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-[#9F9EA1]">
             {testimonial.university}
           </p>
         </div>
       </div>
 
       {/* Refund Amount */}
-      <p className="text-2xl font-serif font-bold mb-4 text-primary">
-        {testimonial.refundAmount} Refunded
+      <p className="text-xl font-serif font-bold mb-4 text-primary">
+        Received {testimonial.refundAmount}
       </p>
 
       {/* Testimonial Text */}
-      <p className="text-base text-muted-foreground mb-6 font-sans">
+      <p className="text-base text-[#8E9196] leading-relaxed font-sans">
         "{testimonial.text}"
       </p>
-
-      {/* Verification Badge */}
-      <div className="flex items-center gap-2 text-sm text-primary">
-        <CheckCircle2 className="h-4 w-4" />
-        <span>Refund Verified</span>
-      </div>
-
-      {/* Hover Effect Underline */}
-      <div className="absolute bottom-0 left-0 w-full h-1 bg-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-b-2xl"></div>
     </motion.div>
   );
 };
