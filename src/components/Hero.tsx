@@ -23,8 +23,21 @@ const trustBadges = [
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-[70vh] flex items-center bg-gradient-to-r from-primary to-accent border-b">
-      <div className="container px-4 py-8 mx-auto">
+    <section className="relative min-h-[70vh] flex items-center border-b">
+      {/* Background Image with Overlay */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'url("/placeholder.svg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-accent/90" />
+      </div>
+
+      <div className="container px-4 py-8 mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
