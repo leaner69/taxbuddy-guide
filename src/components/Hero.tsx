@@ -35,7 +35,7 @@ export const Hero = () => {
           backgroundRepeat: 'no-repeat'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-accent/95 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
       </div>
 
       <div className="container px-4 py-8 mx-auto relative z-10">
