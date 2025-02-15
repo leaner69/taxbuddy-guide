@@ -38,7 +38,7 @@ export const Hero = () => {
         <div 
           className="absolute inset-0" 
           style={{
-            background: 'linear-gradient(to right, rgba(211, 228, 253, 0.95), rgba(255, 255, 255, 0.85))'
+            background: 'linear-gradient(to right, rgba(211, 228, 253, 0.85), rgba(255, 255, 255, 0.75))'
           }}
         />
       </div>
@@ -54,7 +54,7 @@ export const Hero = () => {
           <div className="flex justify-center">
             <Badge 
               variant="secondary" 
-              className="px-4 py-2 text-base md:text-lg flex items-center gap-2 bg-[#7E69AB]/20 text-primary backdrop-blur-sm border border-[#7E69AB]/30"
+              className="px-4 py-2 text-base md:text-lg flex items-center gap-2 bg-primary/10 text-primary font-medium backdrop-blur-sm border border-primary/20"
             >
               <Shield className="h-5 w-5" />
               Guaranteed Value: If your refund is under €100, we'll refund our fee
@@ -62,11 +62,11 @@ export const Hero = () => {
           </div>
 
           <div className="space-y-4">
-            <h1 className="text-2xl md:text-5xl font-bold tracking-tight text-primary font-heading">
+            <h1 className="text-2xl md:text-5xl font-bold tracking-tight text-primary drop-shadow-sm font-heading">
               Students: Claim Your Tax Refund
             </h1>
             
-            <p className="text-base md:text-xl text-primary/90 max-w-2xl mx-auto font-body">
+            <p className="text-base md:text-xl text-primary font-medium max-w-2xl mx-auto font-body">
               Most students get €500-€1,500 back. Don't leave your money on the table.
             </p>
           </div>
@@ -88,7 +88,7 @@ export const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
-                className="flex flex-col items-center text-primary/90 space-y-3"
+                className="flex flex-col items-center text-primary font-medium space-y-3"
               >
                 <benefit.icon className="h-10 w-10 mb-2" />
                 <span className="text-base font-medium">{benefit.text}</span>
@@ -114,7 +114,7 @@ export const Hero = () => {
               <CarouselContent>
                 {benefits.map((benefit, index) => (
                   <CarouselItem key={index} className="basis-full">
-                    <div className="flex flex-col items-center text-primary/90 space-y-2">
+                    <div className="flex flex-col items-center text-primary font-medium space-y-2">
                       <benefit.icon className="h-8 w-8 mb-2" />
                       <span className="text-sm font-medium">{benefit.text}</span>
                     </div>
@@ -127,7 +127,7 @@ export const Hero = () => {
           {/* Trust Badges */}
           <div className="hidden sm:flex justify-center gap-8 mt-8">
             {trustBadges.map((badge, index) => (
-              <span key={index} className="text-primary/70 text-sm font-medium">
+              <span key={index} className="text-primary font-medium text-sm">
                 {badge}
               </span>
             ))}
@@ -151,7 +151,7 @@ export const Hero = () => {
               <CarouselContent>
                 {trustBadges.map((badge, index) => (
                   <CarouselItem key={index} className="basis-full">
-                    <span className="text-primary/70 text-sm font-medium block text-center">
+                    <span className="text-primary font-medium text-sm block text-center">
                       {badge}
                     </span>
                   </CarouselItem>
