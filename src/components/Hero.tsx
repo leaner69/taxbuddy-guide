@@ -29,13 +29,13 @@ export const Hero = () => {
       <div 
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: 'url("/placeholder.svg")',
+          backgroundImage: 'url("https://images.unsplash.com/photo-1483058712412-4245e9b90334?q=80&w=2070&auto=format&fit=crop")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-accent/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 to-accent/95 backdrop-blur-sm" />
       </div>
 
       <div className="container px-4 py-8 mx-auto relative z-10">
