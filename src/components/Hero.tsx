@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Shield } from "lucide-react";
+import { Shield, FileText, Robot, GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Carousel,
@@ -9,15 +9,21 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 
-const stats = [
-  "Average rating: 4.5/5",
-  "Money-Back Guarantee",
-  "Helped 1000+ Students",
+const benefits = [
+  { icon: GraduationCap, text: "Enter Student Deductions" },
+  { icon: Robot, text: "AI Calculates Your Refund" },
+  { icon: FileText, text: "Download Your ELSTER Guide" },
+];
+
+const trustBadges = [
+  "GDPR-Compliant",
+  "Tax Advisor Verified",
+  "4.9/5 Student Reviews",
 ];
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-[70vh] flex items-center border-b">
+    <section className="relative min-h-[70vh] flex items-center bg-gradient-to-r from-primary to-accent border-b">
       <div className="container px-4 py-8 mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -25,36 +31,52 @@ export const Hero = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center space-y-4"
         >
-          {/* Guarantee Badge - Now above the hero title */}
-          <div className="flex justify-center mb-6">
+          {/* Guarantee Badge */}
+          <div className="flex justify-center mb-4">
             <Badge 
               variant="secondary" 
-              className="px-3 py-1.5 text-sm md:text-base flex items-center gap-2 bg-accent text-white"
+              className="px-3 py-1.5 text-sm md:text-base flex items-center gap-2 bg-white/10 text-white backdrop-blur-sm"
             >
               <Shield className="h-4 w-4" />
               Guaranteed Value: If your refund is under €100, we'll refund our fee
             </Badge>
           </div>
 
-          <h1 className="text-2xl md:text-5xl font-bold tracking-tight text-primary">
-            Get Your German Tax Refund
+          <h1 className="text-2xl md:text-5xl font-bold tracking-tight text-white font-heading">
+            Maximize Your German Tax Refund: Students Get €500–€1,500 Back, Guaranteed
           </h1>
           
-          <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Simple process to claim your tax refund. Average refund: €500–€1,500
+          <p className="text-base md:text-xl text-white/80 max-w-2xl mx-auto font-body">
+            AI-Powered Accuracy + Expert-Approved Guides
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-10 pb-6">
             <Button 
               size="lg"
-              className="bg-primary hover:bg-primary-hover text-white px-6 py-3 text-base md:text-lg w-full sm:w-auto"
+              className="bg-[#D4AF37] hover:bg-[#C19B25] text-primary px-8 py-6 text-base md:text-lg w-full sm:w-auto font-semibold transition-all duration-300 hover:scale-105"
             >
-              Check Your Refund Now
+              Start Your Free Refund Estimate
             </Button>
           </div>
 
-          {/* Mobile Stats Carousel */}
-          <div className="block sm:hidden overflow-hidden mt-6">
+          {/* Workflow Steps */}
+          <div className="hidden sm:grid grid-cols-3 gap-6 mt-12 max-w-3xl mx-auto">
+            {benefits.map((benefit, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2 }}
+                className="flex flex-col items-center text-white/90 space-y-2"
+              >
+                <benefit.icon className="h-8 w-8 mb-2" />
+                <span className="text-sm font-medium">{benefit.text}</span>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Mobile Workflow Carousel */}
+          <div className="block sm:hidden mt-8">
             <Carousel
               opts={{
                 align: "start",
@@ -64,12 +86,11 @@ export const Hero = () => {
               className="w-full"
             >
               <CarouselContent>
-                {stats.map((stat, index) => (
+                {benefits.map((benefit, index) => (
                   <CarouselItem key={index} className="basis-full">
-                    <div className="text-center">
-                      <p className="text-muted-foreground text-sm">
-                        {stat}
-                      </p>
+                    <div className="flex flex-col items-center text-white/90 space-y-2">
+                      <benefit.icon className="h-6 w-6 mb-2" />
+                      <span className="text-sm font-medium">{benefit.text}</span>
                     </div>
                   </CarouselItem>
                 ))}
@@ -77,16 +98,35 @@ export const Hero = () => {
             </Carousel>
           </div>
 
-          {/* Desktop Stats Grid */}
-          <div className="hidden sm:grid sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
-            {stats.map((stat, index) => (
-              <div 
-                key={stat}
-                className="flex items-center justify-center text-muted-foreground"
-              >
-                <span className="text-base">{stat}</span>
-              </div>
+          {/* Trust Badges */}
+          <div className="hidden sm:flex justify-center gap-8 mt-8">
+            {trustBadges.map((badge, index) => (
+              <span key={index} className="text-white/70 text-sm font-medium">
+                {badge}
+              </span>
             ))}
+          </div>
+
+          {/* Mobile Trust Badges Carousel */}
+          <div className="block sm:hidden mt-6">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+                dragFree: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {trustBadges.map((badge, index) => (
+                  <CarouselItem key={index} className="basis-full">
+                    <span className="text-white/70 text-sm font-medium block text-center">
+                      {badge}
+                    </span>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
         </motion.div>
       </div>
