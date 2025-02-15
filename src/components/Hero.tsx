@@ -13,7 +13,7 @@ import Autoplay from 'embla-carousel-autoplay';
 
 const benefits = [
   { icon: GraduationCap, text: "Enter Student Deductions" },
-  { icon: Bot, text: "AI Calculates Your Refund" },
+  { icon: Bot, text: "Calculate Your Refund" },
   { icon: FileText, text: "Download Your ELSTER Guide" },
 ];
 
@@ -45,37 +45,34 @@ export const Hero = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center space-y-6"
         >
-          {/* Guarantee Badge - Positioned at the very top */}
+          {/* Guarantee Badge */}
           <div className="flex justify-center">
             <Badge 
               variant="secondary" 
-              className="px-4 py-2 text-base md:text-lg flex items-center gap-2 bg-white/10 text-white backdrop-blur-sm border border-white/20"
+              className="px-4 py-2 text-base md:text-lg flex items-center gap-2 bg-[#7E69AB]/20 text-white backdrop-blur-sm border border-[#7E69AB]/30"
             >
               <Shield className="h-5 w-5" />
-              Students: Don't miss out on your guaranteed €500-€1,500 refund!
+              Guaranteed Value: If your refund is under €100, we'll refund our fee
             </Badge>
           </div>
 
           <div className="space-y-4">
             <h1 className="text-2xl md:text-5xl font-bold tracking-tight text-white font-heading">
-              Attention Students: 70% Leave Their Tax Refund Unclaimed!
+              Students: Claim Your Tax Refund
             </h1>
             
             <p className="text-base md:text-xl text-white/90 max-w-2xl mx-auto font-body">
-              Don't let your €500-€1,500 refund expire. Our AI-powered system helps you claim what's rightfully yours before the deadline.
+              Most students get €500-€1,500 back. Don't leave your money on the table.
             </p>
           </div>
           
           <div className="mt-8">
             <Button 
               size="lg"
-              className="bg-[#D4AF37] hover:bg-[#C19B25] text-primary px-8 py-6 text-base md:text-lg w-full sm:w-auto font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
+              className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white px-8 py-6 text-base md:text-lg w-full sm:w-auto font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
             >
-              Get Your Free Refund Estimate Now
+              Get Your Free Refund Estimate
             </Button>
-            <p className="text-white/70 text-sm mt-3">
-              Limited Time: Get 20% off our service fee for early submissions
-            </p>
           </div>
 
           {/* Workflow Steps - Desktop */}
