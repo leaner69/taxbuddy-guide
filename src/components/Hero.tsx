@@ -16,7 +16,6 @@ const benefits = [
 ];
 
 const trustBadges = [
-  "GDPR-Compliant",
   "Tax Advisor Verified",
   "4.9/5 Student Reviews",
 ];
@@ -42,59 +41,66 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto text-center space-y-4"
+          className="max-w-4xl mx-auto text-center space-y-6"
         >
-          {/* Guarantee Badge */}
-          <div className="flex justify-center mb-4">
+          {/* Guarantee Badge - Positioned at the very top */}
+          <div className="flex justify-center">
             <Badge 
               variant="secondary" 
-              className="px-3 py-1.5 text-sm md:text-base flex items-center gap-2 bg-white/10 text-white backdrop-blur-sm"
+              className="px-4 py-2 text-base md:text-lg flex items-center gap-2 bg-white/10 text-white backdrop-blur-sm border border-white/20"
             >
-              <Shield className="h-4 w-4" />
-              Guaranteed Value: If your refund is under €100, we'll refund our fee
+              <Shield className="h-5 w-5" />
+              Students: Don't miss out on your guaranteed €500-€1,500 refund!
             </Badge>
           </div>
 
-          <h1 className="text-2xl md:text-5xl font-bold tracking-tight text-white font-heading">
-            Maximize Your German Tax Refund: Students Get €500–€1,500 Back, Guaranteed
-          </h1>
+          <div className="space-y-4">
+            <h1 className="text-2xl md:text-5xl font-bold tracking-tight text-white font-heading">
+              Attention Students: 70% Leave Their Tax Refund Unclaimed!
+            </h1>
+            
+            <p className="text-base md:text-xl text-white/90 max-w-2xl mx-auto font-body">
+              Don't let your €500-€1,500 refund expire. Our AI-powered system helps you claim what's rightfully yours before the deadline.
+            </p>
+          </div>
           
-          <p className="text-base md:text-xl text-white/80 max-w-2xl mx-auto font-body">
-            AI-Powered Accuracy + Expert-Approved Guides
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-10 pb-6">
+          <div className="mt-8">
             <Button 
               size="lg"
-              className="bg-[#D4AF37] hover:bg-[#C19B25] text-primary px-8 py-6 text-base md:text-lg w-full sm:w-auto font-semibold transition-all duration-300 hover:scale-105"
+              className="bg-[#D4AF37] hover:bg-[#C19B25] text-primary px-8 py-6 text-base md:text-lg w-full sm:w-auto font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
             >
-              Start Your Free Refund Estimate
+              Get Your Free Refund Estimate Now
             </Button>
+            <p className="text-white/70 text-sm mt-3">
+              Limited Time: Get 20% off our service fee for early submissions
+            </p>
           </div>
 
-          {/* Workflow Steps */}
-          <div className="hidden sm:grid grid-cols-3 gap-6 mt-12 max-w-3xl mx-auto">
+          {/* Workflow Steps - Desktop */}
+          <div className="hidden sm:grid grid-cols-3 gap-8 mt-12 max-w-3xl mx-auto">
             {benefits.map((benefit, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
-                className="flex flex-col items-center text-white/90 space-y-2"
+                className="flex flex-col items-center text-white/90 space-y-3"
               >
-                <benefit.icon className="h-8 w-8 mb-2" />
-                <span className="text-sm font-medium">{benefit.text}</span>
+                <benefit.icon className="h-10 w-10 mb-2" />
+                <span className="text-base font-medium">{benefit.text}</span>
               </motion.div>
             ))}
           </div>
 
-          {/* Mobile Workflow Carousel */}
+          {/* Mobile Workflow Carousel - Auto-sliding */}
           <div className="block sm:hidden mt-8">
             <Carousel
               opts={{
                 align: "start",
                 loop: true,
                 dragFree: true,
+                autoPlay: true,
+                interval: 3000,
               }}
               className="w-full"
             >
@@ -102,7 +108,7 @@ export const Hero = () => {
                 {benefits.map((benefit, index) => (
                   <CarouselItem key={index} className="basis-full">
                     <div className="flex flex-col items-center text-white/90 space-y-2">
-                      <benefit.icon className="h-6 w-6 mb-2" />
+                      <benefit.icon className="h-8 w-8 mb-2" />
                       <span className="text-sm font-medium">{benefit.text}</span>
                     </div>
                   </CarouselItem>
@@ -127,6 +133,8 @@ export const Hero = () => {
                 align: "start",
                 loop: true,
                 dragFree: true,
+                autoPlay: true,
+                interval: 3000,
               }}
               className="w-full"
             >
