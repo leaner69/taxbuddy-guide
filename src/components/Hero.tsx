@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Shield, FileText, Robot, GraduationCap } from "lucide-react";
+import { Shield, FileText, Bot, GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Carousel,
@@ -11,7 +11,7 @@ import {
 
 const benefits = [
   { icon: GraduationCap, text: "Enter Student Deductions" },
-  { icon: Robot, text: "AI Calculates Your Refund" },
+  { icon: Bot, text: "AI Calculates Your Refund" },
   { icon: FileText, text: "Download Your ELSTER Guide" },
 ];
 
