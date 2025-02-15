@@ -38,7 +38,7 @@ export const RefundCalculator = () => {
   };
 
   return (
-    <section className="py-16 bg-white border-b">
+    <section id="refund-calculator" className="py-16 bg-white border-b scroll-mt-16">
       <div className="container px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

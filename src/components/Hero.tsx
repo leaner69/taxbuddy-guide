@@ -23,26 +23,15 @@ const trustBadges = [
 ];
 
 export const Hero = () => {
-  return (
-    <section className="relative min-h-[70vh] flex items-center border-b">
-      {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1543269664-56d93c1b41a6?q=80&w=2070&auto=format&fit=crop")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div 
-          className="absolute inset-0" 
-          style={{
-            background: 'linear-gradient(to right, rgba(211, 228, 253, 0.85), rgba(255, 255, 255, 0.75))'
-          }}
-        />
-      </div>
+  const handleScrollToCalculator = () => {
+    const calculatorSection = document.querySelector('#refund-calculator');
+    if (calculatorSection) {
+      calculatorSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
+  return (
+    <section className="relative min-h-[70vh] flex items-center border-b bg-gradient-to-br from-[#F1F0FB] via-white to-[#D3E4FD]">
       <div className="container px-4 py-8 mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -54,7 +43,7 @@ export const Hero = () => {
           <div className="flex justify-center">
             <Badge 
               variant="secondary" 
-              className="px-4 py-2 text-base md:text-lg flex items-center gap-2 bg-primary/10 text-primary font-medium backdrop-blur-sm border border-primary/20"
+              className="px-4 py-2 text-base md:text-lg flex items-center gap-2 bg-white/80 text-primary font-medium backdrop-blur-sm border border-primary/20 shadow-sm"
             >
               <Shield className="h-5 w-5" />
               Guaranteed Value: If your refund is under €100, we'll refund our fee
@@ -62,11 +51,11 @@ export const Hero = () => {
           </div>
 
           <div className="space-y-4">
-            <h1 className="text-2xl md:text-5xl font-bold tracking-tight text-primary drop-shadow-sm font-heading">
+            <h1 className="text-2xl md:text-5xl font-bold tracking-tight text-[#6E59A5] font-heading">
               Students: Claim Your Tax Refund
             </h1>
             
-            <p className="text-base md:text-xl text-primary font-medium max-w-2xl mx-auto font-body">
+            <p className="text-base md:text-xl text-[#7E69AB] font-medium max-w-2xl mx-auto font-body">
               Most students get €500-€1,500 back. Don't leave your money on the table.
             </p>
           </div>
@@ -74,6 +63,7 @@ export const Hero = () => {
           <div className="mt-8">
             <Button 
               size="lg"
+              onClick={handleScrollToCalculator}
               className="bg-[#8B5CF6] hover:bg-[#7C3AED] text-white px-8 py-6 text-base md:text-lg w-full sm:w-auto font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
             >
               Get Your Free Refund Estimate
@@ -88,7 +78,7 @@ export const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
-                className="flex flex-col items-center text-primary font-medium space-y-3"
+                className="flex flex-col items-center text-[#7E69AB] font-medium space-y-3"
               >
                 <benefit.icon className="h-10 w-10 mb-2" />
                 <span className="text-base font-medium">{benefit.text}</span>
@@ -114,7 +104,7 @@ export const Hero = () => {
               <CarouselContent>
                 {benefits.map((benefit, index) => (
                   <CarouselItem key={index} className="basis-full">
-                    <div className="flex flex-col items-center text-primary font-medium space-y-2">
+                    <div className="flex flex-col items-center text-[#7E69AB] font-medium space-y-2">
                       <benefit.icon className="h-8 w-8 mb-2" />
                       <span className="text-sm font-medium">{benefit.text}</span>
                     </div>
@@ -127,7 +117,7 @@ export const Hero = () => {
           {/* Trust Badges */}
           <div className="hidden sm:flex justify-center gap-8 mt-8">
             {trustBadges.map((badge, index) => (
-              <span key={index} className="text-primary font-medium text-sm">
+              <span key={index} className="text-[#7E69AB] font-medium text-sm">
                 {badge}
               </span>
             ))}
@@ -151,7 +141,7 @@ export const Hero = () => {
               <CarouselContent>
                 {trustBadges.map((badge, index) => (
                   <CarouselItem key={index} className="basis-full">
-                    <span className="text-primary font-medium text-sm block text-center">
+                    <span className="text-[#7E69AB] font-medium text-sm block text-center">
                       {badge}
                     </span>
                   </CarouselItem>
