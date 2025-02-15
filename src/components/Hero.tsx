@@ -8,6 +8,8 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 const benefits = [
   { icon: GraduationCap, text: "Enter Student Deductions" },
@@ -92,16 +94,19 @@ export const Hero = () => {
             ))}
           </div>
 
-          {/* Mobile Workflow Carousel - Auto-sliding */}
+          {/* Mobile Workflow Carousel */}
           <div className="block sm:hidden mt-8">
             <Carousel
               opts={{
                 align: "start",
                 loop: true,
-                dragFree: true,
-                autoPlay: true,
-                interval: 3000,
               }}
+              plugins={[
+                Autoplay({
+                  delay: 3000,
+                  stopOnInteraction: false,
+                })
+              ]}
               className="w-full"
             >
               <CarouselContent>
@@ -132,10 +137,13 @@ export const Hero = () => {
               opts={{
                 align: "start",
                 loop: true,
-                dragFree: true,
-                autoPlay: true,
-                interval: 3000,
               }}
+              plugins={[
+                Autoplay({
+                  delay: 3000,
+                  stopOnInteraction: false,
+                })
+              ]}
               className="w-full"
             >
               <CarouselContent>
