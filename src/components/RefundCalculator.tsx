@@ -1,40 +1,52 @@
+
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Euro, HelpCircle } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Euro } from "lucide-react";
 
 export const RefundCalculator = () => {
-  const [taxYear, setTaxYear] = useState("2024");
-  const [studyType, setStudyType] = useState("bachelor");
-  const [incomeRange, setIncomeRange] = useState("less");
-  const [semesterFees, setSemesterFees] = useState([300]);
-  const [tuitionFees, setTuitionFees] = useState([0]);
+  const [year, setYear] = useState(2024);
+  const [income, setIncome] = useState(0);
+  const [taxPaid, setTaxPaid] = useState(0);
+  const [jobType, setJobType] = useState("mini-job");
+  const [studyExpenses, setStudyExpenses] = useState(0);
+  const [status, setStatus] = useState("bachelor");
+  const [rentExpenses, setRentExpenses] = useState(0);
+  const [healthInsurance, setHealthInsurance] = useState(0);
+  const [travelExpenses, setTravelExpenses] = useState(0);
+  const [otherDeductions, setOtherDeductions] = useState(0);
+  const [refundEstimate, setRefundEstimate] = useState<number | null>(null);
+
+  const taxFreeLimits: Record<number, number> = {
+    2020: 9408,
+    2021: 9744,
+    2022: 9984,
+    2023: 10347,
+    2024: 11004,
+  };
 
   const calculateRefund = () => {
-    let baseRefund = 200;
-    
-    // Add semester fees contribution (30% of fees)
-    baseRefund += (semesterFees[0] * 0.3);
-    
-    // Add tuition fees contribution (20% of fees)
-    baseRefund += (tuitionFees[0] * 0.2);
-    
-    // Adjust based on income range
-    if (incomeRange === "less") {
-      baseRefund *= 1.2; // 20% bonus for lower income
+    let refund = 0;
+    const taxFreeLimit = taxFreeLimits[year] || 10347;
+
+    if (income < taxFreeLimit) {
+      refund = taxPaid; // Full tax refund if income is below tax-free limit
+    } else {
+      let taxableIncome = income - taxFreeLimit;
+      let deductionLimit = status === "bachelor" ? 6000 : studyExpenses + rentExpenses + healthInsurance + travelExpenses + otherDeductions;
+      taxableIncome -= Math.min(deductionLimit, studyExpenses + rentExpenses + healthInsurance + travelExpenses + otherDeductions);
+
+      if (taxableIncome < 0) taxableIncome = 0;
+
+      refund = taxPaid - (taxableIncome * 0.2); // 20% estimated tax rate
+      if (refund < 0) refund = 0;
     }
-    
-    // Adjust based on study type
-    if (studyType === "master") {
-      baseRefund *= 1.15; // 15% bonus for master studies
-    }
-    
-    // Ensure refund stays within bounds
-    const finalRefund = Math.min(Math.max(baseRefund, 200), 1400);
-    
-    return finalRefund.toFixed(2);
+
+    setRefundEstimate(refund);
   };
 
   return (
@@ -52,150 +64,91 @@ export const RefundCalculator = () => {
               Use our calculator to estimate how much you could get back from your tax return
             </p>
           </div>
-          
-          <div className="bg-gray-50 rounded-xl p-8 md:p-12 shadow-sm">
-            <div className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                  <label className="block text-lg font-medium text-primary mb-3">
-                    Tax Year
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <HelpCircle className="w-4 h-4 ml-2 inline-block text-muted-foreground" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Select the year you want to file your tax return for</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </label>
-                  <Select defaultValue={taxYear} onValueChange={setTaxYear}>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Check Your Tax Refund Eligibility</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Select Year</label>
+                  <Select value={year.toString()} onValueChange={(value) => setYear(Number(value))}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select year" />
                     </SelectTrigger>
                     <SelectContent>
-                      {["2020", "2021", "2022", "2023", "2024"].map((year) => (
-                        <SelectItem key={year} value={year}>
-                          {year}
-                        </SelectItem>
+                      {Object.keys(taxFreeLimits).map((y) => (
+                        <SelectItem key={y} value={y}>{y}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
 
-                <div>
-                  <label className="block text-lg font-medium text-primary mb-3">
-                    Study Type
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <HelpCircle className="w-4 h-4 ml-2 inline-block text-muted-foreground" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Master studies may qualify for additional deductions</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </label>
-                  <Select defaultValue={studyType} onValueChange={setStudyType}>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Status</label>
+                  <Select value={status} onValueChange={setStatus}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select study type" />
+                      <SelectValue placeholder="Select status" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="bachelor">Bachelor</SelectItem>
                       <SelectItem value="master">Master</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="block text-lg font-medium text-primary mb-3">
-                    Income Range
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger>
-                          <HelpCircle className="w-4 h-4 ml-2 inline-block text-muted-foreground" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Lower income may qualify for additional benefits</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </label>
-                  <Select defaultValue={incomeRange} onValueChange={setIncomeRange}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select income range" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="less">Less than €10,000</SelectItem>
-                      <SelectItem value="more">More than €10,000</SelectItem>
+                      <SelectItem value="full-time">Full-Time Employee</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
 
-              <div>
-                <label className="block text-lg font-medium text-primary mb-3">
-                  Semester Fees (€ per semester)
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <HelpCircle className="w-4 h-4 ml-2 inline-block text-muted-foreground" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Regular semester contribution fees can be claimed</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </label>
-                <Slider
-                  defaultValue={[300]}
-                  max={3000}
-                  step={50}
-                  value={semesterFees}
-                  onValueChange={setSemesterFees}
-                  className="w-full"
-                />
-                <p className="mt-2 text-primary font-medium">€{semesterFees[0]}</p>
-              </div>
-
-              <div>
-                <label className="block text-lg font-medium text-primary mb-3">
-                  Tuition Fees (€ per semester)
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <HelpCircle className="w-4 h-4 ml-2 inline-block text-muted-foreground" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Additional tuition fees if applicable</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </label>
-                <Slider
-                  defaultValue={[0]}
-                  max={3000}
-                  step={50}
-                  value={tuitionFees}
-                  onValueChange={setTuitionFees}
-                  className="w-full"
-                />
-                <p className="mt-2 text-primary font-medium">€{tuitionFees[0]}</p>
-              </div>
-
-              <div className="p-8 bg-primary rounded-xl text-white">
-                <div className="flex items-center justify-between">
-                  <span className="text-xl">Estimated Refund:</span>
-                  <div className="flex items-center text-3xl font-bold">
-                    <Euro className="w-6 h-6 mr-1" />
-                    {calculateRefund()}
+              <div className="space-y-4">
+                {[
+                  { label: "Annual Income (€)", value: income, setter: setIncome },
+                  { label: "Income Tax Paid (€)", value: taxPaid, setter: setTaxPaid },
+                  { label: "Study-Related Expenses (€)", value: studyExpenses, setter: setStudyExpenses },
+                  { label: "Rent Expenses (€)", value: rentExpenses, setter: setRentExpenses },
+                  { label: "Health Insurance (€)", value: healthInsurance, setter: setHealthInsurance },
+                  { label: "Travel Expenses (€)", value: travelExpenses, setter: setTravelExpenses },
+                  { label: "Other Deductible Expenses (€)", value: otherDeductions, setter: setOtherDeductions },
+                ].map((field) => (
+                  <div key={field.label} className="space-y-2">
+                    <label className="text-sm font-medium">{field.label}</label>
+                    <Input
+                      type="number"
+                      value={field.value}
+                      onChange={(e) => field.setter(Number(e.target.value))}
+                    />
                   </div>
-                </div>
+                ))}
               </div>
-            </div>
-          </div>
+
+              <Button
+                onClick={calculateRefund}
+                className="w-full"
+                size="lg"
+              >
+                Calculate Refund
+              </Button>
+
+              {refundEstimate !== null && (
+                <Alert className={refundEstimate < 100 ? "bg-red-50" : "bg-green-50"}>
+                  <AlertDescription>
+                    <div className="flex items-center justify-between">
+                      <span className="text-lg font-semibold">Estimated Refund:</span>
+                      <div className="flex items-center text-3xl font-bold">
+                        <Euro className="w-6 h-6 mr-1" />
+                        {refundEstimate.toFixed(2)}
+                      </div>
+                    </div>
+                    {refundEstimate < 100 && (
+                      <p className="mt-2 text-red-600">
+                        Your refund is below €100! If you file with us, we guarantee a full refund of our service fee.
+                      </p>
+                    )}
+                  </AlertDescription>
+                </Alert>
+              )}
+            </CardContent>
+          </Card>
         </motion.div>
       </div>
     </section>
