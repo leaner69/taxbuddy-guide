@@ -9,16 +9,12 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Euro } from "lucide-react";
 
 export const RefundCalculator = () => {
-  const [year, setYear] = useState(2024);
-  const [income, setIncome] = useState(0);
-  const [taxPaid, setTaxPaid] = useState(0);
-  const [jobType, setJobType] = useState("mini-job");
-  const [studyExpenses, setStudyExpenses] = useState(0);
+  const [year, setYear] = useState("2024");
+  const [income, setIncome] = useState<string>("");
+  const [taxPaid, setTaxPaid] = useState<string>("");
+  const [studyExpenses, setStudyExpenses] = useState<string>("");
+  const [healthInsurance, setHealthInsurance] = useState<string>("");
   const [status, setStatus] = useState("bachelor");
-  const [rentExpenses, setRentExpenses] = useState(0);
-  const [healthInsurance, setHealthInsurance] = useState(0);
-  const [travelExpenses, setTravelExpenses] = useState(0);
-  const [otherDeductions, setOtherDeductions] = useState(0);
   const [refundEstimate, setRefundEstimate] = useState<number | null>(null);
 
   const taxFreeLimits: Record<number, number> = {
@@ -30,19 +26,24 @@ export const RefundCalculator = () => {
   };
 
   const calculateRefund = () => {
+    const incomeNum = Number(income) || 0;
+    const taxPaidNum = Number(taxPaid) || 0;
+    const studyExpensesNum = Number(studyExpenses) || 0;
+    const healthInsuranceNum = Number(healthInsurance) || 0;
+    
     let refund = 0;
-    const taxFreeLimit = taxFreeLimits[year] || 10347;
+    const taxFreeLimit = taxFreeLimits[Number(year)] || 10347;
 
-    if (income < taxFreeLimit) {
-      refund = taxPaid; // Full tax refund if income is below tax-free limit
+    if (incomeNum < taxFreeLimit) {
+      refund = taxPaidNum; // Full tax refund if income is below tax-free limit
     } else {
-      let taxableIncome = income - taxFreeLimit;
-      let deductionLimit = status === "bachelor" ? 6000 : studyExpenses + rentExpenses + healthInsurance + travelExpenses + otherDeductions;
-      taxableIncome -= Math.min(deductionLimit, studyExpenses + rentExpenses + healthInsurance + travelExpenses + otherDeductions);
+      let taxableIncome = incomeNum - taxFreeLimit;
+      let deductionLimit = status === "bachelor" ? 6000 : studyExpensesNum + healthInsuranceNum;
+      taxableIncome -= Math.min(deductionLimit, studyExpensesNum + healthInsuranceNum);
 
       if (taxableIncome < 0) taxableIncome = 0;
 
-      refund = taxPaid - (taxableIncome * 0.2); // 20% estimated tax rate
+      refund = taxPaidNum - (taxableIncome * 0.2); // 20% estimated tax rate
       if (refund < 0) refund = 0;
     }
 
@@ -73,13 +74,13 @@ export const RefundCalculator = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Select Year</label>
-                  <Select value={year.toString()} onValueChange={(value) => setYear(Number(value))}>
+                  <Select value={year} onValueChange={setYear}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select year" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="bg-white">
                       {Object.keys(taxFreeLimits).map((y) => (
-                        <SelectItem key={y} value={y}>{y}</SelectItem>
+                        <SelectItem key={y} value={y} className="hover:bg-gray-100">{y}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -91,10 +92,10 @@ export const RefundCalculator = () => {
                     <SelectTrigger>
                       <SelectValue placeholder="Select status" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="bachelor">Bachelor</SelectItem>
-                      <SelectItem value="master">Master</SelectItem>
-                      <SelectItem value="full-time">Full-Time Employee</SelectItem>
+                    <SelectContent className="bg-white">
+                      <SelectItem value="bachelor" className="hover:bg-gray-100">Bachelor</SelectItem>
+                      <SelectItem value="master" className="hover:bg-gray-100">Master</SelectItem>
+                      <SelectItem value="full-time" className="hover:bg-gray-100">Full-Time Employee</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -105,17 +106,15 @@ export const RefundCalculator = () => {
                   { label: "Annual Income (€)", value: income, setter: setIncome },
                   { label: "Income Tax Paid (€)", value: taxPaid, setter: setTaxPaid },
                   { label: "Study-Related Expenses (€)", value: studyExpenses, setter: setStudyExpenses },
-                  { label: "Rent Expenses (€)", value: rentExpenses, setter: setRentExpenses },
                   { label: "Health Insurance (€)", value: healthInsurance, setter: setHealthInsurance },
-                  { label: "Travel Expenses (€)", value: travelExpenses, setter: setTravelExpenses },
-                  { label: "Other Deductible Expenses (€)", value: otherDeductions, setter: setOtherDeductions },
                 ].map((field) => (
                   <div key={field.label} className="space-y-2">
                     <label className="text-sm font-medium">{field.label}</label>
                     <Input
                       type="number"
                       value={field.value}
-                      onChange={(e) => field.setter(Number(e.target.value))}
+                      onChange={(e) => field.setter(e.target.value)}
+                      placeholder="Enter amount"
                     />
                   </div>
                 ))}
@@ -154,3 +153,4 @@ export const RefundCalculator = () => {
     </section>
   );
 };
+
