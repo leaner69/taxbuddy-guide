@@ -31,7 +31,7 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[70vh] flex items-center border-b bg-gradient-to-br from-[#F1F1F1] via-white to-[#D3E4FD]">
+    <section className="relative min-h-[70vh] flex items-center border-b bg-gradient-to-br from-[#F1F1F1] via-white to-white">
       <div className="container px-4 py-8 mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
