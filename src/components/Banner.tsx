@@ -1,7 +1,7 @@
 
 export const Banner = () => {
   return (
-    <div className="w-full bg-primary/90 py-1.5 text-white text-center fixed top-0 z-50">
+    <div className="w-full bg-[#0EA5E9]/90 py-1.5 text-white text-center fixed top-0 z-50">
       <p className="text-sm md:text-base">
         Average student misses €850 in tax refunds yearly
       </p>
