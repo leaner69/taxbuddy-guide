@@ -64,7 +64,7 @@ export const Hero = () => {
             <Button 
               size="lg"
               onClick={handleScrollToCalculator}
-              className="bg-[#0EA5E9] hover:bg-[#0d96d4] text-white px-8 py-6 text-base md:text-lg w-full sm:w-auto font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
+              className="bg-[#1A1F2C] hover:bg-[#222222] text-white px-8 py-6 text-base md:text-lg w-full sm:w-auto font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
             >
               Get Your Free Refund Estimate
             </Button>
