@@ -31,7 +31,24 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[70vh] flex items-center border-b bg-gradient-to-br from-[#222222]/5 via-[#F1F1F1]/50 to-white">
+    <section className="relative min-h-[70vh] flex items-center border-b bg-gradient-to-br from-[#222222]/5 via-[#F1F1F1]/50 to-white overflow-hidden">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 w-full h-full bg-cover bg-center z-0" 
+        style={{ 
+          backgroundImage: "url('/hero-student-tax.jpg')",
+          backgroundPosition: "center",
+          backgroundSize: "cover", 
+          filter: "blur(2px) brightness(0.9)",
+          opacity: 0.45,
+        }}
+      />
+      
+      {/* Gradient Overlay */}
+      <div 
+        className="absolute inset-0 w-full h-full z-1 bg-gradient-to-br from-[#222222]/30 via-[#F1F1F1]/70 to-white/90"
+      />
+
       <div className="container px-4 py-8 mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
