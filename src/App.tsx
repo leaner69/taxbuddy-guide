@@ -34,27 +34,31 @@ const ScrollToHashElement = () => {
   return null;
 };
 
+const AppLayout = ({children, showFooter = true}) => (
+  <div className="flex flex-col min-h-screen">
+    <Banner />
+    <Header />
+    <ScrollToHashElement />
+    <main className="flex-grow">
+      {children}
+    </main>
+    {showFooter && <Footer />}
+  </div>
+);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="flex flex-col min-h-screen">
-          <Banner />
-          <Header />
-          <ScrollToHashElement />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/payment" element={<PaymentGateway />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
+        <Routes>
+          <Route path="/" element={<AppLayout><Index /></AppLayout>} />
+          <Route path="/about" element={<AppLayout><About /></AppLayout>} />
+          <Route path="/contact" element={<AppLayout><Contact /></AppLayout>} />
+          <Route path="/payment" element={<AppLayout showFooter={false}><PaymentGateway /></AppLayout>} />
+          <Route path="*" element={<AppLayout><NotFound /></AppLayout>} />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
