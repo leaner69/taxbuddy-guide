@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Euro } from "lucide-react";
+import { Euro, ArrowRight } from "lucide-react";
 
 export const RefundCalculator = () => {
   const [year, setYear] = useState("2024");
@@ -48,6 +48,13 @@ export const RefundCalculator = () => {
     }
 
     setRefundEstimate(refund);
+  };
+
+  const scrollToPricing = () => {
+    const pricingSection = document.getElementById("pricing");
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -129,22 +136,39 @@ export const RefundCalculator = () => {
               </Button>
 
               {refundEstimate !== null && (
-                <Alert className={refundEstimate < 100 ? "bg-red-50" : "bg-green-50"}>
-                  <AlertDescription>
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-semibold">Estimated Refund:</span>
-                      <div className="flex items-center text-3xl font-bold">
-                        <Euro className="w-6 h-6 mr-1" />
-                        {refundEstimate.toFixed(2)}
+                <div className="space-y-4">
+                  <Alert className={refundEstimate < 100 ? "bg-red-50" : "bg-green-50"}>
+                    <AlertDescription>
+                      <div className="flex items-center justify-between">
+                        <span className="text-lg font-semibold">Estimated Refund:</span>
+                        <div className="flex items-center text-3xl font-bold">
+                          <Euro className="w-6 h-6 mr-1" />
+                          {refundEstimate.toFixed(2)}
+                        </div>
                       </div>
-                    </div>
-                    {refundEstimate < 100 && (
-                      <p className="mt-2 text-red-600">
-                        Your refund is below €100! If you file with us, we guarantee a full refund of our service fee.
-                      </p>
-                    )}
-                  </AlertDescription>
-                </Alert>
+                      {refundEstimate < 100 && (
+                        <p className="mt-2 text-red-600">
+                          Your refund is below €100! If you file with us, we guarantee a full refund of our service fee.
+                        </p>
+                      )}
+                    </AlertDescription>
+                  </Alert>
+                  
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                  >
+                    <Button 
+                      onClick={scrollToPricing} 
+                      className="w-full" 
+                      size="lg" 
+                      variant="secondary"
+                    >
+                      Choose a Filing Package <ArrowRight className="ml-2" />
+                    </Button>
+                  </motion.div>
+                </div>
               )}
             </CardContent>
           </Card>
@@ -153,4 +177,3 @@ export const RefundCalculator = () => {
     </section>
   );
 };
-
