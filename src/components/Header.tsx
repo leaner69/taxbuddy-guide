@@ -1,3 +1,4 @@
+
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { Link } from "react-router-dom";
 import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
@@ -51,12 +52,12 @@ export const Header = () => {
                 <NavigationMenuItem key={item.path}>
                   <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="grid w-[200px] gap-2 p-4">
+                    <ul className="grid w-[200px] gap-2 p-4 bg-white">
                       {item.subItems.map((subItem) => (
                         <li key={subItem.path}>
                           <Link
                             to={subItem.path}
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 bg-white focus:bg-gray-100 focus:text-accent-foreground"
                           >
                             {subItem.label}
                           </Link>
@@ -78,23 +79,23 @@ export const Header = () => {
                 <Menu className="h-6 w-6" />
               </button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+            <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-white">
               <nav className="flex flex-col gap-4 mt-8">
                 {menuItems.map((item) => (
                   <div key={item.path} className="space-y-2">
                     <Link
                       to={item.path}
-                      className="text-lg font-medium hover:text-[#4F46E5] transition-colors"
+                      className="text-lg font-medium hover:text-[#4F46E5] hover:bg-gray-100 p-2 rounded-md transition-colors block"
                       onClick={() => setIsOpen(false)}
                     >
                       {item.label}
                     </Link>
-                    <ul className="ml-4 space-y-2">
+                    <ul className="ml-4 space-y-2 bg-white">
                       {item.subItems.map((subItem) => (
                         <li key={subItem.path}>
                           <Link
                             to={subItem.path}
-                            className="text-gray-600 hover:text-[#4F46E5] transition-colors"
+                            className="text-gray-600 hover:text-[#4F46E5] hover:bg-gray-100 p-2 rounded-md transition-colors block"
                             onClick={() => setIsOpen(false)}
                           >
                             {subItem.label}
