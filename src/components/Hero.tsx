@@ -43,7 +43,7 @@ export const Hero = () => {
           <div className="flex justify-center">
             <Badge 
               variant="secondary" 
-              className="px-4 py-2 text-base md:text-lg flex items-center gap-2 bg-white/80 text-[#333333] font-medium backdrop-blur-sm border border-[#C8C8C9]/20 shadow-sm"
+              className="px-4 py-2 text-base md:text-lg flex items-center gap-2 bg-white/80 text-[#222222] font-medium backdrop-blur-sm border border-[#F1F1F1]/20 shadow-sm"
             >
               <Shield className="h-5 w-5" />
               Guaranteed Value: If your refund is under €100, we'll refund our fee
@@ -55,7 +55,7 @@ export const Hero = () => {
               Students: Claim Your Tax Refund
             </h1>
             
-            <p className="text-base md:text-xl text-[#555555] font-medium max-w-2xl mx-auto font-body">
+            <p className="text-base md:text-xl text-[#222222] font-medium max-w-2xl mx-auto font-body">
               Most students get €500-€1,500 back. Don't leave your money on the table.
             </p>
           </div>
@@ -64,7 +64,7 @@ export const Hero = () => {
             <Button 
               size="lg"
               onClick={handleScrollToCalculator}
-              className="bg-[#1A1F2C] hover:bg-[#222222] text-white px-8 py-6 text-base md:text-lg w-full sm:w-auto font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
+              className="bg-[#222222] hover:bg-[#222222]/80 text-white px-8 py-6 text-base md:text-lg w-full sm:w-auto font-semibold transition-all duration-300 hover:scale-105 shadow-lg"
             >
               Get Your Free Refund Estimate
             </Button>
@@ -78,7 +78,7 @@ export const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
-                className="flex flex-col items-center text-[#555555] font-medium space-y-3"
+                className="flex flex-col items-center text-[#222222] font-medium space-y-3"
               >
                 <benefit.icon className="h-10 w-10 mb-2" />
                 <span className="text-base font-medium">{benefit.text}</span>
@@ -104,7 +104,7 @@ export const Hero = () => {
               <CarouselContent>
                 {benefits.map((benefit, index) => (
                   <CarouselItem key={index} className="basis-full">
-                    <div className="flex flex-col items-center text-[#555555] font-medium space-y-2">
+                    <div className="flex flex-col items-center text-[#222222] font-medium space-y-2">
                       <benefit.icon className="h-8 w-8 mb-2" />
                       <span className="text-sm font-medium">{benefit.text}</span>
                     </div>
@@ -117,7 +117,7 @@ export const Hero = () => {
           {/* Trust Badges */}
           <div className="hidden sm:flex justify-center gap-8 mt-8">
             {trustBadges.map((badge, index) => (
-              <span key={index} className="text-[#555555] font-medium text-sm">
+              <span key={index} className="text-[#222222] font-medium text-sm">
                 {badge}
               </span>
             ))}
@@ -141,7 +141,7 @@ export const Hero = () => {
               <CarouselContent>
                 {trustBadges.map((badge, index) => (
                   <CarouselItem key={index} className="basis-full">
-                    <span className="text-[#555555] font-medium text-sm block text-center">
+                    <span className="text-[#222222] font-medium text-sm block text-center">
                       {badge}
                     </span>
                   </CarouselItem>
