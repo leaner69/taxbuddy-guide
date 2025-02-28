@@ -1,5 +1,5 @@
 
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -7,6 +7,9 @@ import { cn } from "@/lib/utils";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === "/";
 
   const menuItems = [
     { path: "/", label: "Home" },
@@ -15,6 +18,30 @@ export const Header = () => {
     { path: "/about", label: "About Us" },
     { path: "/contact", label: "Contact" }
   ];
+
+  const handleNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    e.preventDefault();
+    setIsOpen(false);
+
+    // If it's a hash link
+    if (path.includes("#")) {
+      const [pagePath, hash] = path.split("#");
+      
+      // If we're already on the home page and the link is to a section on the home page
+      if (isHomePage && pagePath === "/") {
+        const targetElement = document.getElementById(hash);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        // We're on another page, navigate to home page first, then scroll to the section
+        navigate("/", { state: { scrollToId: hash } });
+      }
+    } else {
+      // Regular navigation
+      navigate(path);
+    }
+  };
 
   return (
     <header className="bg-white fixed top-8 w-full z-40 border-b border-gray-200">
@@ -35,17 +62,7 @@ export const Header = () => {
                       "text-base font-medium text-gray-700 hover:text-[#4F46E5] transition-colors",
                       "py-2 px-2 rounded-md hover:bg-gray-100"
                     )}
-                    onClick={(e) => {
-                      // For hash links on the same page, prevent default behavior and scroll smoothly
-                      if (item.path.startsWith("/#") && window.location.pathname === "/") {
-                        e.preventDefault();
-                        const targetId = item.path.split("#")[1];
-                        const targetElement = document.getElementById(targetId);
-                        if (targetElement) {
-                          targetElement.scrollIntoView({ behavior: "smooth" });
-                        }
-                      }
-                    }}
+                    onClick={(e) => handleNavigation(e, item.path)}
                   >
                     {item.label}
                   </a>
@@ -70,18 +87,7 @@ export const Header = () => {
                     <a
                       href={item.path}
                       className="text-lg font-medium hover:text-[#4F46E5] hover:bg-gray-100 p-2 rounded-md transition-colors block"
-                      onClick={(e) => {
-                        setIsOpen(false);
-                        // For hash links on the same page, prevent default behavior and scroll smoothly
-                        if (item.path.startsWith("/#") && window.location.pathname === "/") {
-                          e.preventDefault();
-                          const targetId = item.path.split("#")[1];
-                          const targetElement = document.getElementById(targetId);
-                          if (targetElement) {
-                            targetElement.scrollIntoView({ behavior: "smooth" });
-                          }
-                        }
-                      }}
+                      onClick={(e) => handleNavigation(e, item.path)}
                     >
                       {item.label}
                     </a>
