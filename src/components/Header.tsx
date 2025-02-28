@@ -1,74 +1,58 @@
 
-import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
-import { Link } from "react-router-dom";
-import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import { Link as RouterLink } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
-    { 
-      path: "/", 
-      label: "Home",
-      subItems: [
-        { path: "/#how-it-works", label: "How It Works" },
-        { path: "/#pricing", label: "Pricing" },
-        { path: "/#faq", label: "FAQ" },
-      ]
-    },
-    { 
-      path: "/about", 
-      label: "About Us",
-      subItems: [
-        { path: "/about#team", label: "Our Team" },
-        { path: "/about#mission", label: "Our Mission" },
-      ]
-    },
-    { 
-      path: "/contact", 
-      label: "Contact",
-      subItems: [
-        { path: "/contact#support", label: "Support" },
-        { path: "/contact#office", label: "Office" },
-      ]
-    }
+    { path: "/", label: "Home" },
+    { path: "/#how-it-works", label: "How It Works" },
+    { path: "/#pricing", label: "Pricing" },
+    { path: "/about", label: "About Us" },
+    { path: "/contact", label: "Contact" }
   ];
 
   return (
     <header className="bg-white fixed top-8 w-full z-40 border-b border-gray-200">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-[#2A3B56] to-[#4F46E5] text-transparent bg-clip-text">
+        <RouterLink to="/" className="text-2xl font-bold bg-gradient-to-r from-[#2A3B56] to-[#4F46E5] text-transparent bg-clip-text">
           TaxBuddy
-        </Link>
+        </RouterLink>
 
         {/* Desktop Navigation */}
         <div className="hidden md:block">
-          <NavigationMenu>
-            <NavigationMenuList>
+          <nav>
+            <ul className="flex items-center space-x-6">
               {menuItems.map((item) => (
-                <NavigationMenuItem key={item.path}>
-                  <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[200px] gap-2 p-4 bg-white">
-                      {item.subItems.map((subItem) => (
-                        <li key={subItem.path}>
-                          <Link
-                            to={subItem.path}
-                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-gray-100 bg-white focus:bg-gray-100 focus:text-accent-foreground"
-                          >
-                            {subItem.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+                <li key={item.path}>
+                  <a
+                    href={item.path}
+                    className={cn(
+                      "text-base font-medium text-gray-700 hover:text-[#4F46E5] transition-colors",
+                      "py-2 px-2 rounded-md hover:bg-gray-100"
+                    )}
+                    onClick={(e) => {
+                      // For hash links on the same page, prevent default behavior and scroll smoothly
+                      if (item.path.startsWith("/#") && window.location.pathname === "/") {
+                        e.preventDefault();
+                        const targetId = item.path.split("#")[1];
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                          targetElement.scrollIntoView({ behavior: "smooth" });
+                        }
+                      }
+                    }}
+                  >
+                    {item.label}
+                  </a>
+                </li>
               ))}
-            </NavigationMenuList>
-          </NavigationMenu>
+            </ul>
+          </nav>
         </div>
 
         {/* Mobile Navigation */}
@@ -82,27 +66,25 @@ export const Header = () => {
             <SheetContent side="right" className="w-[300px] sm:w-[400px] bg-white">
               <nav className="flex flex-col gap-4 mt-8">
                 {menuItems.map((item) => (
-                  <div key={item.path} className="space-y-2">
-                    <Link
-                      to={item.path}
+                  <div key={item.path}>
+                    <a
+                      href={item.path}
                       className="text-lg font-medium hover:text-[#4F46E5] hover:bg-gray-100 p-2 rounded-md transition-colors block"
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => {
+                        setIsOpen(false);
+                        // For hash links on the same page, prevent default behavior and scroll smoothly
+                        if (item.path.startsWith("/#") && window.location.pathname === "/") {
+                          e.preventDefault();
+                          const targetId = item.path.split("#")[1];
+                          const targetElement = document.getElementById(targetId);
+                          if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: "smooth" });
+                          }
+                        }
+                      }}
                     >
                       {item.label}
-                    </Link>
-                    <ul className="ml-4 space-y-2 bg-white">
-                      {item.subItems.map((subItem) => (
-                        <li key={subItem.path}>
-                          <Link
-                            to={subItem.path}
-                            className="text-gray-600 hover:text-[#4F46E5] hover:bg-gray-100 p-2 rounded-md transition-colors block"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {subItem.label}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+                    </a>
                   </div>
                 ))}
               </nav>
