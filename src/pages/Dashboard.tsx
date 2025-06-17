@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -59,7 +58,7 @@ const Dashboard = () => {
 
   const handleDownloadPDF = () => {
     // Create a link to download the PDF from Supabase storage
-    const downloadUrl = `${supabase.supabaseUrl}/storage/v1/object/public/pdfs/Masterguide.pdf`;
+    const downloadUrl = `https://chghngeolthjinalfajg.supabase.co/storage/v1/object/public/pdfs/Masterguide.pdf`;
     window.open(downloadUrl, '_blank');
   };
 
