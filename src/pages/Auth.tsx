@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { X } from "lucide-react";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -40,13 +41,61 @@ const Auth = () => {
     setIsLoading(false);
   };
 
+  const handleClose = () => {
+    navigate("/");
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    navigate("/", { state: { scrollToId: sectionId } });
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md"
+        className="w-full max-w-md relative"
       >
+        {/* Close button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleClose}
+          className="absolute -top-2 -right-2 z-10 bg-white shadow-md hover:bg-gray-100"
+        >
+          <X className="h-4 w-4" />
+        </Button>
+
+        {/* Navigation links */}
+        <div className="mb-4 text-center">
+          <div className="flex flex-wrap justify-center gap-4 text-sm">
+            <button 
+              onClick={() => scrollToSection("features")}
+              className="text-primary hover:underline"
+            >
+              Features
+            </button>
+            <button 
+              onClick={() => scrollToSection("how-it-works")}
+              className="text-primary hover:underline"
+            >
+              How It Works
+            </button>
+            <button 
+              onClick={() => scrollToSection("pricing")}
+              className="text-primary hover:underline"
+            >
+              Pricing
+            </button>
+            <button 
+              onClick={() => navigate("/about")}
+              className="text-primary hover:underline"
+            >
+              About
+            </button>
+          </div>
+        </div>
+
         <Card>
           <CardHeader>
             <CardTitle className="text-center">Welcome</CardTitle>

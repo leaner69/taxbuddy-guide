@@ -3,13 +3,21 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, Lock, Download } from "lucide-react";
+import { FileText, Lock, Download, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 
 export const PDFPreview = () => {
+  const [currentPage, setCurrentPage] = useState(0);
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  const pdfPages = [
+    'https://chghngeolthjinalfajg.supabase.co/storage/v1/object/public/pdf-resources/page1.png',
+    'https://chghngeolthjinalfajg.supabase.co/storage/v1/object/public/pdf-resources/page2.png',
+    'https://chghngeolthjinalfajg.supabase.co/storage/v1/object/public/pdf-resources/page3.png',
+    'https://chghngeolthjinalfajg.supabase.co/storage/v1/object/public/pdf-resources/page4.png'
+  ];
 
   const handlePurchase = () => {
     if (!user) {
@@ -22,6 +30,14 @@ export const PDFPreview = () => {
         planPrice: "€29.99" 
       } 
     });
+  };
+
+  const nextPage = () => {
+    setCurrentPage((prev) => (prev + 1) % pdfPages.length);
+  };
+
+  const prevPage = () => {
+    setCurrentPage((prev) => (prev - 1 + pdfPages.length) % pdfPages.length);
   };
 
   return (
@@ -48,18 +64,55 @@ export const PDFPreview = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-              {/* PDF Preview Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
-                {[1, 2, 3, 4].map((page) => (
-                  <div key={page} className="relative">
-                    <div className="bg-white border-2 border-gray-200 rounded-lg aspect-[8.5/11] flex items-center justify-center shadow-sm">
-                      <div className="text-center">
-                        <FileText className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                        <p className="text-sm text-gray-500">Page {page} Preview</p>
-                      </div>
-                    </div>
+              {/* PDF Preview Carousel */}
+              <div className="relative p-6">
+                <div className="relative bg-white border-2 border-gray-200 rounded-lg aspect-[8.5/11] flex items-center justify-center shadow-sm overflow-hidden max-w-md mx-auto">
+                  <img 
+                    src={pdfPages[currentPage]} 
+                    alt={`Page ${currentPage + 1} Preview`}
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling.style.display = 'flex';
+                    }}
+                  />
+                  <div className="hidden flex-col items-center justify-center text-center">
+                    <FileText className="h-12 w-12 text-gray-400 mb-2" />
+                    <p className="text-sm text-gray-500">Page {currentPage + 1} Preview</p>
                   </div>
-                ))}
+                </div>
+                
+                {/* Navigation buttons */}
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={prevPage}
+                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={nextPage}
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+                
+                {/* Page indicators */}
+                <div className="flex justify-center mt-4 space-x-2">
+                  {pdfPages.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentPage(index)}
+                      className={`w-3 h-3 rounded-full transition-colors ${
+                        index === currentPage ? 'bg-primary' : 'bg-gray-300'
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Locked Content Indicator */}

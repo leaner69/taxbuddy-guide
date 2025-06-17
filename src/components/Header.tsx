@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 
 export const Header = () => {
@@ -52,6 +51,12 @@ export const Header = () => {
               className="text-gray-600 hover:text-primary transition-colors"
             >
               Pricing
+            </button>
+            <button 
+              onClick={() => navigate("/about")}
+              className="text-gray-600 hover:text-primary transition-colors"
+            >
+              About
             </button>
             {user ? (
               <div className="flex items-center gap-4">
@@ -103,6 +108,12 @@ export const Header = () => {
                 className="text-left text-gray-600 hover:text-primary transition-colors"
               >
                 Pricing
+              </button>
+              <button 
+                onClick={() => navigate("/about")}
+                className="text-left text-gray-600 hover:text-primary transition-colors"
+              >
+                About
               </button>
               {user ? (
                 <div className="flex flex-col gap-2">
