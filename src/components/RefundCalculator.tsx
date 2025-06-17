@@ -58,7 +58,7 @@ export const RefundCalculator = () => {
   };
 
   return (
-    <section id="refund-calculator" className="py-16 bg-white border-b scroll-mt-16">
+    <section id="refund-calculator" className="py-8 bg-white border-b scroll-mt-16">
       <div className="container px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -66,7 +66,7 @@ export const RefundCalculator = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-primary mb-4">Calculate Your Potential Refund</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Use our calculator to estimate how much you could get back from your tax return

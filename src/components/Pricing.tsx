@@ -4,19 +4,17 @@ import { Check } from "lucide-react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogDescription, 
-  DialogFooter, 
-  DialogHeader, 
-  DialogTitle 
-} from "./ui/dialog";
+import { useAuth } from "@/hooks/useAuth";
 
 export const Pricing = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handlePlanSelect = (planName: string, planPrice: string) => {
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
     // Navigate to payment page with plan details
     navigate("/payment", { 
       state: { 
@@ -27,9 +25,9 @@ export const Pricing = () => {
   };
 
   return (
-    <section id="pricing" className="py-12 bg-white border-b">
+    <section id="pricing" className="py-8 bg-white border-b">
       <div className="container px-4">
-        <div className="max-w-2xl mx-auto text-center mb-12">
+        <div className="max-w-2xl mx-auto text-center mb-8">
           <h2 className="text-3xl font-bold text-primary mb-4">Simple, Transparent Pricing</h2>
           <p className="text-lg text-muted-foreground">
             Choose the plan that works best for you
@@ -66,7 +64,7 @@ export const Pricing = () => {
               className="w-full bg-primary hover:bg-primary-hover text-white mt-auto"
               onClick={() => handlePlanSelect("Self-Service", "€29.99")}
             >
-              Get Started
+              {user ? "Get Started" : "Sign Up & Get Started"}
             </Button>
           </motion.div>
 
@@ -99,7 +97,7 @@ export const Pricing = () => {
               className="w-full bg-primary hover:bg-primary-hover text-white mt-auto"
               onClick={() => handlePlanSelect("Expert Service", "€59.99")}
             >
-              Get Expert Help
+              {user ? "Get Expert Help" : "Sign Up & Get Expert Help"}
             </Button>
           </motion.div>
         </div>
