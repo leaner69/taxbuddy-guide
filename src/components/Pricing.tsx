@@ -5,19 +5,14 @@ import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import Auth from "@/pages/Auth";
 
 export const Pricing = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<{name: string, price: string} | null>(null);
 
   const handlePlanSelect = (planName: string, planPrice: string) => {
     if (!user) {
-      setSelectedPlan({ name: planName, price: planPrice });
-      setAuthModalOpen(true);
+      navigate("/auth");
       return;
     }
     // Navigate to payment page with plan details
@@ -29,23 +24,11 @@ export const Pricing = () => {
     });
   };
 
-  const handleAuthSuccess = () => {
-    setAuthModalOpen(false);
-    if (selectedPlan) {
-      navigate("/payment", { 
-        state: { 
-          planName: selectedPlan.name, 
-          planPrice: selectedPlan.price 
-        } 
-      });
-    }
-  };
-
   return (
-    <section id="pricing" className="py-4 bg-white border-b">
+    <section id="pricing" className="py-8 bg-white border-b">
       <div className="container px-4">
-        <div className="max-w-2xl mx-auto text-center mb-6">
-          <h2 className="text-3xl font-bold text-primary mb-3">Simple, Transparent Pricing</h2>
+        <div className="max-w-2xl mx-auto text-center mb-8">
+          <h2 className="text-3xl font-bold text-primary mb-4">Simple, Transparent Pricing</h2>
           <p className="text-lg text-muted-foreground">
             Choose the plan that works best for you
           </p>
@@ -77,24 +60,12 @@ export const Pricing = () => {
                 </ul>
               </div>
             </div>
-            <Dialog open={authModalOpen && selectedPlan?.name === "Self-Service"} onOpenChange={(open) => {
-              if (!open) setAuthModalOpen(false);
-            }}>
-              <DialogTrigger asChild>
-                <Button 
-                  className="w-full bg-primary hover:bg-primary-hover text-white mt-auto"
-                  onClick={() => handlePlanSelect("Self-Service", "€29.99")}
-                >
-                  {user ? "Get Started" : "Sign Up & Get Started"}
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-md">
-                <DialogHeader>
-                  <DialogTitle>Create Account to Continue</DialogTitle>
-                </DialogHeader>
-                <Auth onSuccess={handleAuthSuccess} />
-              </DialogContent>
-            </Dialog>
+            <Button 
+              className="w-full bg-primary hover:bg-primary-hover text-white mt-auto"
+              onClick={() => handlePlanSelect("Self-Service", "€29.99")}
+            >
+              {user ? "Get Started" : "Sign Up & Get Started"}
+            </Button>
           </motion.div>
 
           {/* Expert Service Package */}
@@ -122,24 +93,12 @@ export const Pricing = () => {
                 </ul>
               </div>
             </div>
-            <Dialog open={authModalOpen && selectedPlan?.name === "Expert Service"} onOpenChange={(open) => {
-              if (!open) setAuthModalOpen(false);
-            }}>
-              <DialogTrigger asChild>
-                <Button 
-                  className="w-full bg-primary hover:bg-primary-hover text-white mt-auto"
-                  onClick={() => handlePlanSelect("Expert Service", "€59.99")}
-                >
-                  {user ? "Get Expert Help" : "Sign Up & Get Expert Help"}
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-md">
-                <DialogHeader>
-                  <DialogTitle>Create Account to Continue</DialogTitle>
-                </DialogHeader>
-                <Auth onSuccess={handleAuthSuccess} />
-              </DialogContent>
-            </Dialog>
+            <Button 
+              className="w-full bg-primary hover:bg-primary-hover text-white mt-auto"
+              onClick={() => handlePlanSelect("Expert Service", "€59.99")}
+            >
+              {user ? "Get Expert Help" : "Sign Up & Get Expert Help"}
+            </Button>
           </motion.div>
         </div>
       </div>
