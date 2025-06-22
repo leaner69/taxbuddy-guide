@@ -1,157 +1,127 @@
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, Lock, Download, ChevronLeft, ChevronRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
+import { FileText, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const PDFPreview = () => {
   const [currentPage, setCurrentPage] = useState(0);
-  const navigate = useNavigate();
-  const { user } = useAuth();
+  const [pageImages, setPageImages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const pdfPages = [
-    'https://chghngeolthjinalfajg.supabase.co/storage/v1/object/public/pdf-resources/page1.png',
-    'https://chghngeolthjinalfajg.supabase.co/storage/v1/object/public/pdf-resources/page2.png',
-    'https://chghngeolthjinalfajg.supabase.co/storage/v1/object/public/pdf-resources/page3.png',
-    'https://chghngeolthjinalfajg.supabase.co/storage/v1/object/public/pdf-resources/page4.png'
-  ];
+  useEffect(() => {
+    const fetchPageImages = async () => {
+      try {
+        const pages = [];
+        for (let i = 1; i <= 4; i++) {
+          const { data } = await supabase.storage
+            .from('pdf-resources')
+            .getPublicUrl(`page${i}.png`);
+          
+          if (data?.publicUrl) {
+            pages.push(data.publicUrl);
+          }
+        }
+        setPageImages(pages);
+      } catch (error) {
+        console.error('Error fetching page images:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handlePurchase = () => {
-    if (!user) {
-      navigate("/auth");
-      return;
-    }
-    navigate("/payment", { 
-      state: { 
-        planName: "Self-Service Guide", 
-        planPrice: "€29.99" 
-      } 
-    });
-  };
+    fetchPageImages();
+  }, []);
 
   const nextPage = () => {
-    setCurrentPage((prev) => (prev + 1) % pdfPages.length);
+    setCurrentPage((prev) => (prev + 1) % pageImages.length);
   };
 
   const prevPage = () => {
-    setCurrentPage((prev) => (prev - 1 + pdfPages.length) % pdfPages.length);
+    setCurrentPage((prev) => (prev - 1 + pageImages.length) % pageImages.length);
   };
 
+  if (loading) {
+    return (
+      <section id="pdf-preview" className="py-12 bg-gray-50">
+        <div className="container px-4 sm:px-6 lg:px-8">
+          <div className="text-center">Loading preview...</div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="py-8 bg-gray-50 border-b">
-      <div className="container px-4">
+    <section id="pdf-preview" className="py-12 bg-gray-50">
+      <div className="container px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto"
+          className="mx-auto max-w-4xl text-center mb-8"
         >
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-primary mb-4">Step-by-Step PDF Guide Preview</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Get a sneak peek of our comprehensive guide that walks you through the entire German tax filing process
-            </p>
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <FileText className="h-6 w-6 text-primary" />
+            <h2 className="text-3xl font-bold text-primary">
+              Preview Our Tax Guide
+            </h2>
           </div>
-
-          <Card className="overflow-hidden">
-            <CardHeader className="bg-primary text-white">
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-6 w-6" />
-                Master Guide - German Tax Filing for Students
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              {/* PDF Preview Carousel */}
-              <div className="relative p-6">
-                <div className="relative bg-white border-2 border-gray-200 rounded-lg aspect-[8.5/11] flex items-center justify-center shadow-sm overflow-hidden max-w-md mx-auto">
-                  <img 
-                    src={pdfPages[currentPage]} 
-                    alt={`Page ${currentPage + 1} Preview`}
-                    className="w-full h-full object-contain"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      e.currentTarget.nextElementSibling.style.display = 'flex';
-                    }}
-                  />
-                  <div className="hidden flex-col items-center justify-center text-center">
-                    <FileText className="h-12 w-12 text-gray-400 mb-2" />
-                    <p className="text-sm text-gray-500">Page {currentPage + 1} Preview</p>
-                  </div>
-                </div>
-                
-                {/* Navigation buttons */}
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={prevPage}
-                  className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={nextPage}
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white"
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
-                
-                {/* Page indicators */}
-                <div className="flex justify-center mt-4 space-x-2">
-                  {pdfPages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentPage(index)}
-                      className={`w-3 h-3 rounded-full transition-colors ${
-                        index === currentPage ? 'bg-primary' : 'bg-gray-300'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Locked Content Indicator */}
-              <div className="bg-gray-100 border-t p-6">
-                <div className="flex items-center justify-center gap-4 mb-4">
-                  <Lock className="h-8 w-8 text-gray-500" />
-                  <div className="text-center">
-                    <h3 className="font-semibold text-gray-700">More Content Available</h3>
-                    <p className="text-sm text-gray-500">20+ additional pages with detailed instructions</p>
-                  </div>
-                </div>
-                
-                <div className="text-center space-y-4">
-                  <div className="flex flex-wrap justify-center gap-2 text-sm text-gray-600">
-                    <span className="bg-white px-3 py-1 rounded-full">✓ Complete ELSTER walkthrough</span>
-                    <span className="bg-white px-3 py-1 rounded-full">✓ Screenshot tutorials</span>
-                    <span className="bg-white px-3 py-1 rounded-full">✓ Deduction checklists</span>
-                    <span className="bg-white px-3 py-1 rounded-full">✓ Multi-language support</span>
-                  </div>
-                  
-                  <Button 
-                    onClick={handlePurchase}
-                    size="lg" 
-                    className="bg-primary hover:bg-primary-hover"
-                  >
-                    <Download className="mr-2 h-4 w-4" />
-                    Purchase Full Guide - €29.99
-                  </Button>
-                  
-                  {!user && (
-                    <p className="text-sm text-gray-500">
-                      Create an account to access your purchases
-                    </p>
-                  )}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <p className="text-lg text-muted-foreground">
+            Get a glimpse of our comprehensive student tax return guide
+          </p>
         </motion.div>
+
+        {pageImages.length > 0 && (
+          <div className="relative max-w-2xl mx-auto">
+            <div className="relative overflow-hidden rounded-lg shadow-lg bg-white">
+              <div 
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${currentPage * 100}%)` } as React.CSSProperties}
+              >
+                {pageImages.map((imageUrl, index) => (
+                  <div key={index} className="w-full flex-shrink-0">
+                    <img
+                      src={imageUrl}
+                      alt={`Page ${index + 1}`}
+                      className="w-full h-auto"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation Controls */}
+            <button
+              onClick={prevPage}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-colors"
+              disabled={pageImages.length <= 1}
+            >
+              <ChevronLeft className="h-5 w-5 text-gray-600" />
+            </button>
+
+            <button
+              onClick={nextPage}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-colors"
+              disabled={pageImages.length <= 1}
+            >
+              <ChevronRight className="h-5 w-5 text-gray-600" />
+            </button>
+
+            {/* Page Indicators */}
+            <div className="flex justify-center gap-2 mt-4">
+              {pageImages.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPage(index)}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    index === currentPage ? 'bg-primary' : 'bg-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
