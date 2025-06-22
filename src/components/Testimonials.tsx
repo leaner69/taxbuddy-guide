@@ -66,10 +66,15 @@ export const Testimonials = () => {
     return result;
   };
 
+  const backgroundSvg = `data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E`;
+
   return (
     <section className="relative py-20 overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="7" cy="7" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+      <div 
+        className="absolute inset-0 opacity-20"
+        style={{ backgroundImage: `url("${backgroundSvg}")` }}
+      ></div>
       
       <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -88,7 +93,7 @@ export const Testimonials = () => {
 
         {/* Desktop Carousel */}
         <div className="hidden lg:block relative">
-          <div className="flex items-center justify-center min-h-[400px]">
+          <div className="flex items-center justify-center min-h-[500px] gap-8">
             {getVisibleTestimonials().map((testimonial, index) => (
               <TestimonialCard
                 key={`${testimonial.name}-${currentIndex}-${index}`}
@@ -172,15 +177,17 @@ const TestimonialCard = ({
 }) => {
   const getCardStyles = () => {
     if (isMobile) {
-      return "w-full max-w-md mx-auto transform-none opacity-100 scale-100";
+      return "w-full max-w-md mx-auto transform scale-100 opacity-100";
     }
     
     if (isCenter) {
-      return "w-96 transform-none opacity-100 scale-100 z-20";
+      return "w-[450px] transform scale-110 opacity-100 z-20 shadow-2xl";
     }
     
     const isLeft = position < 0;
-    return `w-80 ${isLeft ? '-translate-x-12' : 'translate-x-12'} opacity-60 scale-90 hover:opacity-80 transition-all duration-300 cursor-pointer`;
+    return `w-[350px] transform scale-90 opacity-60 hover:opacity-80 transition-all duration-300 cursor-pointer ${
+      isLeft ? '-translate-x-8' : 'translate-x-8'
+    }`;
   };
 
   return (
@@ -190,19 +197,24 @@ const TestimonialCard = ({
       transition={{ duration: 0.6, delay: isCenter ? 0.2 : 0.4 }}
       className={`relative ${getCardStyles()}`}
     >
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
+      <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 relative overflow-hidden">
+        {/* Hero testimonial styling for center card */}
+        {isCenter && (
+          <div className="absolute -top-2 -left-2 -right-2 -bottom-2 bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-600 rounded-3xl opacity-20 blur-sm"></div>
+        )}
+        
         {/* Decorative Quote */}
-        <Quote className="absolute top-4 right-4 h-8 w-8 text-blue-200 opacity-50" />
+        <Quote className="absolute top-6 right-6 h-10 w-10 text-blue-300 opacity-40" />
         
         {/* Profile Section */}
-        <div className="flex items-center gap-4 mb-6">
+        <div className="flex items-center gap-6 mb-8 relative z-10">
           <div className="relative">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center overflow-hidden">
-              <UserRound className="h-8 w-8 text-white" />
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center overflow-hidden shadow-lg">
+              <UserRound className="h-10 w-10 text-white" />
             </div>
             {testimonial.verified && (
-              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-md">
+                <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </div>
@@ -210,20 +222,26 @@ const TestimonialCard = ({
           </div>
           
           <div>
-            <h3 className="font-bold text-gray-900 text-lg">{testimonial.name}</h3>
-            <p className="text-gray-600 text-sm">{testimonial.university}</p>
+            <h3 className={`font-bold text-gray-900 ${isCenter ? 'text-xl' : 'text-lg'}`}>
+              {testimonial.name}
+            </h3>
+            <p className={`text-gray-600 ${isCenter ? 'text-base' : 'text-sm'}`}>
+              {testimonial.university}
+            </p>
           </div>
         </div>
 
         {/* Refund Badge */}
-        <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full mb-4">
-          <span className="text-white font-bold text-sm">
+        <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full mb-6 shadow-lg">
+          <span className={`text-white font-bold ${isCenter ? 'text-base' : 'text-sm'}`}>
             Received {testimonial.refundAmount}
           </span>
         </div>
 
         {/* Testimonial Text */}
-        <blockquote className="text-gray-700 text-base leading-relaxed italic">
+        <blockquote className={`text-gray-700 leading-relaxed italic relative z-10 ${
+          isCenter ? 'text-lg' : 'text-base'
+        }`}>
           "{testimonial.text}"
         </blockquote>
 
