@@ -1,13 +1,7 @@
 
 import { motion } from "framer-motion";
-import { UserRound, Quote } from "lucide-react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { UserRound, Quote, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 
 const testimonials = [
   {
@@ -16,6 +10,7 @@ const testimonials = [
     refundAmount: "€780",
     text: "The step-by-step guidance helped me understand which study-related expenses I could claim on my tax return.",
     verified: true,
+    image: "/placeholder.svg",
   },
   {
     name: "Michael K.",
@@ -23,6 +18,7 @@ const testimonials = [
     refundAmount: "€950",
     text: "As an international student, having clear instructions in English made the German tax return process more approachable.",
     verified: true,
+    image: "/placeholder.svg",
   },
   {
     name: "Lisa W.",
@@ -30,6 +26,7 @@ const testimonials = [
     refundAmount: "€820",
     text: "The platform helped me organize my documents and understand which deductions I might be eligible for.",
     verified: true,
+    image: "/placeholder.svg",
   },
   {
     name: "David R.",
@@ -37,6 +34,7 @@ const testimonials = [
     refundAmount: "€690",
     text: "I was surprised how much I could get back! The tax guide made everything so much clearer.",
     verified: true,
+    image: "/placeholder.svg",
   },
   {
     name: "Anna S.",
@@ -44,140 +42,193 @@ const testimonials = [
     refundAmount: "€850",
     text: "Perfect for international students - finally someone explains German taxes in simple English!",
     verified: true,
+    image: "/placeholder.svg",
   },
 ];
 
 export const Testimonials = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextTestimonial = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const getVisibleTestimonials = () => {
+    const result = [];
+    for (let i = -1; i <= 1; i++) {
+      const index = (currentIndex + i + testimonials.length) % testimonials.length;
+      result.push({ ...testimonials[index], position: i });
+    }
+    return result;
+  };
+
   return (
-    <section className="py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
-      <div className="container px-4 sm:px-6 lg:px-8">
+    <section className="relative py-20 overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="7" cy="7" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+      
+      <div className="container relative z-10 px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mx-auto max-w-2xl lg:text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold tracking-tight text-primary mb-3 font-serif">
-            What Students Say About Our Service
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 font-serif">
+            What Students Say
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Real conversations with students who got their refunds
+          <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+            Real stories from students who successfully claimed their tax refunds
           </p>
         </motion.div>
 
-        {/* Desktop: Alternating Chat Bubbles */}
-        <div className="hidden lg:block space-y-8 max-w-4xl mx-auto">
-          {testimonials.map((testimonial, index) => (
-            <ChatBubble 
-              key={index} 
-              testimonial={testimonial} 
-              index={index} 
-              isLeft={index % 2 === 0}
-            />
-          ))}
+        {/* Desktop Carousel */}
+        <div className="hidden lg:block relative">
+          <div className="flex items-center justify-center min-h-[400px]">
+            {getVisibleTestimonials().map((testimonial, index) => (
+              <TestimonialCard
+                key={`${testimonial.name}-${currentIndex}-${index}`}
+                testimonial={testimonial}
+                position={testimonial.position}
+                isCenter={testimonial.position === 0}
+              />
+            ))}
+          </div>
+
+          {/* Navigation Buttons */}
+          <button
+            onClick={prevTestimonial}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-all duration-300 text-white hover:scale-110"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+          <button
+            onClick={nextTestimonial}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-3 transition-all duration-300 text-white hover:scale-110"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
         </div>
 
-        {/* Mobile: Carousel */}
+        {/* Mobile Stack */}
         <div className="lg:hidden">
-          <Carousel className="w-full max-w-sm mx-auto">
-            <CarouselContent className="-ml-2">
-              {testimonials.map((testimonial, index) => (
-                <CarouselItem key={index} className="pl-2">
-                  <div className="flex justify-center">
-                    <ChatBubble testimonial={testimonial} index={index} isLeft={true} />
-                  </div>
-                </CarouselItem>
+          <div className="space-y-6">
+            <TestimonialCard
+              testimonial={testimonials[currentIndex]}
+              position={0}
+              isCenter={true}
+              isMobile={true}
+            />
+          </div>
+          
+          {/* Mobile Navigation */}
+          <div className="flex justify-center items-center gap-4 mt-8">
+            <button
+              onClick={prevTestimonial}
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-2 transition-all duration-300 text-white"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            
+            <div className="flex gap-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === currentIndex ? 'bg-white w-6' : 'bg-white/40'
+                  }`}
+                />
               ))}
-            </CarouselContent>
-            <div className="flex justify-center gap-2 mt-4">
-              <CarouselPrevious className="relative static translate-y-0 h-8 w-8" />
-              <CarouselNext className="relative static translate-y-0 h-8 w-8" />
             </div>
-          </Carousel>
+            
+            <button
+              onClick={nextTestimonial}
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full p-2 transition-all duration-300 text-white"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
-const ChatBubble = ({ 
+const TestimonialCard = ({ 
   testimonial, 
-  index, 
-  isLeft = true 
+  position = 0, 
+  isCenter = false, 
+  isMobile = false 
 }: { 
   testimonial: any; 
-  index: number; 
-  isLeft?: boolean;
+  position?: number;
+  isCenter?: boolean;
+  isMobile?: boolean;
 }) => {
-  const bubbleColors = [
-    'bg-gradient-to-br from-blue-100 to-blue-200',
-    'bg-gradient-to-br from-purple-100 to-purple-200',
-    'bg-gradient-to-br from-pink-100 to-pink-200',
-    'bg-gradient-to-br from-green-100 to-green-200',
-    'bg-gradient-to-br from-yellow-100 to-yellow-200',
-  ];
-
-  const bubbleColor = bubbleColors[index % bubbleColors.length];
+  const getCardStyles = () => {
+    if (isMobile) {
+      return "w-full max-w-md mx-auto transform-none opacity-100 scale-100";
+    }
+    
+    if (isCenter) {
+      return "w-96 transform-none opacity-100 scale-100 z-20";
+    }
+    
+    const isLeft = position < 0;
+    return `w-80 ${isLeft ? '-translate-x-12' : 'translate-x-12'} opacity-60 scale-90 hover:opacity-80 transition-all duration-300 cursor-pointer`;
+  };
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.2, duration: 0.6 }}
-      className={`flex ${isLeft ? 'justify-start' : 'justify-end'} mb-6`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: isCenter ? 0.2 : 0.4 }}
+      className={`relative ${getCardStyles()}`}
     >
-      <div className={`flex items-start gap-3 max-w-md ${isLeft ? 'flex-row' : 'flex-row-reverse'}`}>
-        {/* Avatar */}
-        <div className="flex-shrink-0">
-          <div className="bg-white rounded-full p-3 shadow-md border-2 border-white">
-            <UserRound className="h-6 w-6 text-gray-600" />
+      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
+        {/* Decorative Quote */}
+        <Quote className="absolute top-4 right-4 h-8 w-8 text-blue-200 opacity-50" />
+        
+        {/* Profile Section */}
+        <div className="flex items-center gap-4 mb-6">
+          <div className="relative">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center overflow-hidden">
+              <UserRound className="h-8 w-8 text-white" />
+            </div>
+            {testimonial.verified && (
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+            )}
           </div>
-        </div>
-
-        {/* Chat Bubble */}
-        <div className="relative">
-          {/* Speech Bubble Tail */}
-          <div 
-            className={`absolute top-4 w-0 h-0 ${
-              isLeft 
-                ? '-left-2 border-l-0 border-r-8 border-r-current' 
-                : '-right-2 border-r-0 border-l-8 border-l-current'
-            } border-t-4 border-b-4 border-t-transparent border-b-transparent text-current`}
-            style={{ color: bubbleColor.includes('blue') ? '#dbeafe' : bubbleColor.includes('purple') ? '#e9d5ff' : bubbleColor.includes('pink') ? '#fce7f3' : bubbleColor.includes('green') ? '#dcfce7' : '#fef3c7' }}
-          />
           
-          {/* Bubble Content */}
-          <div className={`${bubbleColor} rounded-2xl p-6 shadow-lg border border-white/50 relative`}>
-            <Quote className={`absolute top-3 ${isLeft ? 'right-3' : 'left-3'} h-4 w-4 text-gray-400`} />
-            
-            {/* User Info */}
-            <div className="mb-3">
-              <h3 className="font-semibold text-gray-800 text-sm">
-                {testimonial.name}
-              </h3>
-              <p className="text-xs text-gray-600">
-                {testimonial.university}
-              </p>
-            </div>
-
-            {/* Refund Amount - highlighted */}
-            <div className="bg-white/70 rounded-lg px-3 py-1 mb-3 inline-block">
-              <p className="text-sm font-bold text-primary">
-                Received {testimonial.refundAmount}
-              </p>
-            </div>
-
-            {/* Message */}
-            <p className="text-sm text-gray-700 leading-relaxed">
-              "{testimonial.text}"
-            </p>
-
-            {/* Timestamp-like element */}
-            <div className={`flex ${isLeft ? 'justify-end' : 'justify-start'} mt-2`}>
-              <span className="text-xs text-gray-500">✓✓</span>
-            </div>
+          <div>
+            <h3 className="font-bold text-gray-900 text-lg">{testimonial.name}</h3>
+            <p className="text-gray-600 text-sm">{testimonial.university}</p>
           </div>
         </div>
+
+        {/* Refund Badge */}
+        <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full mb-4">
+          <span className="text-white font-bold text-sm">
+            Received {testimonial.refundAmount}
+          </span>
+        </div>
+
+        {/* Testimonial Text */}
+        <blockquote className="text-gray-700 text-base leading-relaxed italic">
+          "{testimonial.text}"
+        </blockquote>
+
+        {/* Decorative Border */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-600"></div>
       </div>
     </motion.div>
   );
