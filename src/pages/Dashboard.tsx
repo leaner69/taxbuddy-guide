@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import BasicUserDashboard from "@/components/BasicUserDashboard";
 
 interface Purchase {
   id: string;
@@ -76,6 +77,11 @@ const Dashboard = () => {
   const completedPurchases = purchases.filter(p => p.status === 'completed');
   const hasSelfService = completedPurchases.some(p => p.package_type === 'self_service');
   const hasExpertService = completedPurchases.some(p => p.package_type === 'expert_service');
+
+  // Show BasicUserDashboard for users with only self-service package
+  if (hasSelfService && !hasExpertService) {
+    return <BasicUserDashboard />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
