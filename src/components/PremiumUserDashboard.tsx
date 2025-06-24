@@ -30,52 +30,52 @@ const PremiumUserDashboard = () => {
       description: "Create your account at elster.de",
       content: "Create your account at elster.de using the step-by-step instructions provided in your PDF guide.",
       estimatedTime: "~10 min",
-      pages: "Pages 5–7",
+      pages: "📘 Pages 5–7",
       completed: false
     },
     {
       id: "complete-profile",
       title: "Complete Elster Profile",
-      description: "Fill in your address, bank details, and tax ID",
+      description: "Add your address, bank details, and tax ID",
       content: "Complete your profile information including personal details, address, and banking information for tax refunds.",
       estimatedTime: "~5 min",
-      pages: "Page 8",
+      pages: "📘 Page 8",
       completed: false
     },
     {
       id: "select-form-fetch-data",
       title: "Select Form & Fetch Income Data",
-      description: "Use Elster's autofill feature to retrieve your tax data",
+      description: "Use Elster's autofill feature to retrieve tax data",
       content: "Use Elster's autofill feature ('Bescheinigungen') to automatically retrieve your employment and tax data from previous submissions.",
       estimatedTime: "~10 min",
-      pages: "Pages 9–16",
+      pages: "📘 Pages 9–16",
       completed: false
     },
     {
       id: "enter-personal-info",
       title: "Enter Personal Info & Bank Details",
-      description: "Complete this section in Elster manually (if not auto-filled)",
+      description: "Fill in your personal and banking info manually",
       content: "Fill in any personal information and bank details that weren't automatically populated in the previous step.",
       estimatedTime: "~5 min",
-      pages: "Pages 17–21",
+      pages: "📘 Pages 17–21",
       completed: false
     },
     {
       id: "check-income-data",
       title: "Check Auto-Filled Income Data",
-      description: "Confirm your income data is correct",
+      description: "Verify preloaded salary, insurance, and tax amounts",
       content: "Review and confirm that your Lohnsteuer, solidarity surcharge, and insurance data are correctly filled and accurate.",
       estimatedTime: "~5 min",
-      pages: "Pages 22–23",
+      pages: "📘 Pages 22–23",
       completed: false
     },
     {
       id: "file-deductions",
       title: "File Deductions",
       description: "Enter expenses like transport, rent, study materials, software",
-      content: "Enter your deductible expenses including transport costs, rent (if home office), study materials, software, and other eligible deductions. If you're unsure about any item, skip for now — we'll review it together on your call.",
+      content: "Enter your deductible expenses including transport costs, rent (if home office), study materials, software, and other eligible deductions.",
       estimatedTime: "~15–20 min",
-      pages: "Pages 24–33",
+      pages: "📘 Pages 24–33",
       completed: false
     },
     {
@@ -89,7 +89,7 @@ const PremiumUserDashboard = () => {
     }
   ]);
 
-  const [openSections, setOpenSections] = useState<string[]>(["register-elster"]);
+  const [openSections, setOpenSections] = useState<string[]>([]);
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [submissionConfirmed, setSubmissionConfirmed] = useState(false);
   const [selectedYear, setSelectedYear] = useState("");

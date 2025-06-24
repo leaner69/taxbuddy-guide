@@ -40,7 +40,7 @@ const ProgressSection = ({ steps, completedSteps, progressPercentage }: Progress
         </CardTitle>
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <Clock className="h-4 w-4" />
-          <span>Estimated total time: ~45–60 minutes</span>
+          <span>🕒 Estimated time to complete: ~45–60 min</span>
         </div>
       </CardHeader>
       <CardContent>

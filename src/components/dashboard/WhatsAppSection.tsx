@@ -8,19 +8,19 @@ const WhatsAppSection = () => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-green-800">
           <MessageSquare className="h-6 w-6" />
-          Need help while working on your return?
+          Need help while filing?
         </CardTitle>
       </CardHeader>
       <CardContent>
         <p className="text-gray-700 mb-4">
-          Scan the QR code below to get quick replies from our team on WhatsApp.
+          Scan to get quick support via WhatsApp (Premium only)
         </p>
         <div className="bg-white p-6 rounded-lg border border-green-200 text-center">
           <div className="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center mx-auto mb-3">
             <QrCode className="h-16 w-16 text-gray-400" />
           </div>
           <p className="text-sm text-gray-600">
-            WhatsApp QR Code - Premium Support
+            📲 WhatsApp QR Code - Premium Support
           </p>
         </div>
       </CardContent>

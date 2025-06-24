@@ -28,7 +28,7 @@ const SubmissionSection = ({
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-blue-800">
           <CheckCircle className="h-6 w-6" />
-          Final Step: Submission Confirmation
+          Confirm your submission
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -46,7 +46,7 @@ const SubmissionSection = ({
           
           <div className="ml-6">
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Select Tax Year
+              Select year
             </label>
             <Select value={selectedYear} onValueChange={onSelectedYearChange}>
               <SelectTrigger className="w-40">
