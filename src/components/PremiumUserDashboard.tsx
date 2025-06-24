@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 import ProgressSection from "@/components/dashboard/ProgressSection";
+import PDFSection from "@/components/dashboard/PDFSection";
 import StepCard from "@/components/dashboard/StepCard";
 import SubmissionSection from "@/components/dashboard/SubmissionSection";
 import UpsellSection from "@/components/dashboard/UpsellSection";
@@ -131,6 +132,9 @@ const PremiumUserDashboard = () => {
               completedSteps={completedSteps}
               progressPercentage={progressPercentage}
             />
+
+            {/* PDF Section */}
+            <PDFSection />
 
             {/* Step Sections */}
             <div className="space-y-4">
